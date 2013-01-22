@@ -5,5 +5,16 @@ Version: 1.0
 Date: 2013-01-22
 Author: Ananda Mahto
 Maintainer: Ananda Mahto <mrdwab@gmail.com>
-Description: Miscellaneous R functions, some utility, and others to clean and organize data.
+Description: Miscellaneous R functions, some utility, and others to clean and
+    organize data.
 License: CC-SA
+Collate:
+    'concat.split.R'
+    'df.sorter.R'
+    'multi.freq.table.R'
+    'random.names.R'
+    'row.extractor.R'
+    'sample.size.R'
+    'stratified.R'
+    'stringseed.sampling.R'
+    'table2df.R'

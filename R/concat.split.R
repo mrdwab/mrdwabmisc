@@ -1,4 +1,95 @@
 ## @knitr concatsplit
+
+
+#'%% ~~function to do ... ~~
+#'
+#'%% ~~ A concise (1-5 lines) description of what the function does. ~~
+#'
+#'%% ~~ If necessary, more details than the description above ~~
+#'
+#'@param data %% ~~Describe \code{data} here~~
+#'@param split.col %% ~~Describe \code{split.col} here~~
+#'@param sep %% ~~Describe \code{sep} here~~
+#'@param structure %% ~~Describe \code{structure} here~~
+#'@param mode %% ~~Describe \code{mode} here~~
+#'@param drop.col %% ~~Describe \code{drop.col} here~~
+#'@param fixed %% ~~Describe \code{fixed} here~~
+#'@return %% ~Describe the value returned %% If it is a LIST, use %%
+#'\item{comp1 }{Description of 'comp1'} %% \item{comp2 }{Description of
+#''comp2'} %% ...
+#'@note %% ~~further notes~~
+#'@author %% ~~who you are~~
+#'@seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
+#'@references %% ~put references to the literature/web site here ~
+#'@keywords ~kwd1 ~kwd2
+#'@examples
+#'
+#'##---- Should be DIRECTLY executable !! ----
+#'##-- ==>  Define data, use random,
+#'##--	or do  help(data=index)  for the standard data sets.
+#'
+#'## The function is currently defined as
+#'function (data, split.col, sep = ",", structure = "compact", 
+#'    mode = NULL, drop.col = FALSE, fixed = FALSE) 
+#'{
+#'    if (is.numeric(split.col)) 
+#'        split.col = split.col
+#'    else split.col = which(colnames(data) %in% split.col)
+#'    a = as.character(data[, split.col])
+#'    b = strsplit(a, sep, fixed = fixed)
+#'    temp <- switch(structure, compact = {
+#'        t1 <- read.table(text = a, sep = sep, fill = TRUE, row.names = NULL, 
+#'            header = FALSE, blank.lines.skip = FALSE, strip.white = TRUE)
+#'        names(t1) <- paste(names(data[split.col]), seq(ncol(t1)), 
+#'            sep = "_")
+#'        if (!is.null(mode)) warning("\n                        'mode' supplied but ignored. \n                        'mode' setting only applicable \n                        when structure='expanded'.")
+#'        if (isTRUE(drop.col)) cbind(data[-split.col], t1) else cbind(data, 
+#'            t1)
+#'    }, list = {
+#'        varname = paste(names(data[split.col]), "list", sep = "_")
+#'        if (suppressWarnings(is.na(try(max(as.numeric(unlist(b))))))) {
+#'            data[varname] = list(lapply(lapply(b, as.character), 
+#'                function(x) gsub("^\s+|\s+$", "", x)))
+#'        } else if (!is.na(try(max(as.numeric(unlist(b)))))) {
+#'            data[varname] = list(lapply(b, as.numeric))
+#'        }
+#'        if (!is.null(mode)) warning("\n                        'mode' supplied but ignored. \n                        'mode' setting only applicable \n                        when structure='expanded'.")
+#'        if (isTRUE(drop.col)) data[-split.col] else data
+#'    }, expanded = {
+#'        if (suppressWarnings(is.na(try(max(as.numeric(unlist(b))))))) {
+#'            what = "string"
+#'            ncol = max(unlist(lapply(b, function(i) length(i))))
+#'        } else if (!is.na(try(max(as.numeric(unlist(b)))))) {
+#'            what = "numeric"
+#'            ncol = max(as.numeric(unlist(b)))
+#'        }
+#'        temp1 <- switch(what, string = {
+#'            temp = as.data.frame(t(sapply(b, "[", 1:ncol)))
+#'            names(temp) = paste(names(data[split.col]), 1:ncol, 
+#'                sep = "_")
+#'            temp = apply(temp, 2, function(x) gsub("^\s+|\s+$", 
+#'                "", x))
+#'            temp1 = cbind(data, temp)
+#'        }, numeric = {
+#'            temp = lapply(b, as.numeric)
+#'            m = matrix(nrow = nrow(data), ncol = ncol)
+#'            for (i in 1:nrow(data)) {
+#'                m[i, temp[[i]]] = temp[[i]]
+#'            }
+#'            m = setNames(data.frame(m), paste(names(data[split.col]), 
+#'                1:ncol, sep = "_"))
+#'            if (is.null(mode)) mode = "binary"
+#'            temp1 <- switch(mode, binary = {
+#'                cbind(data, replace(m, m != "NA", 1))
+#'            }, value = {
+#'                cbind(data, m)
+#'            }, stop("'mode' must be 'binary' or 'value'"))
+#'        })
+#'        if (isTRUE(drop.col)) temp1[-split.col] else temp1
+#'    }, stop("'structure' must be either 'compact', 'expanded', or 'list'"))
+#'    temp
+#'  }
+#'
 concat.split = function(data, split.col, sep = ",", structure = "compact",
                         mode = NULL, drop.col = FALSE, fixed = FALSE) {
     # Takes a column with multiple values, splits the values into 
