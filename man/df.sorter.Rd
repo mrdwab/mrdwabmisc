@@ -1,87 +1,88 @@
 \name{df.sorter}
 \alias{df.sorter}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-%%  ~~function to do ... ~~
+\title{Sort a \code{data.frame} by rows or columns}
+\usage{
+  df.sorter(data, var.order = names(data), col.sort = NULL,
+    at.start = TRUE)
+}
+\arguments{
+  \item{data}{The source \code{data.frame}.}
+
+  \item{var.order}{The new order in which you want the
+  variables to appear. See Details}
+
+  \item{col.sort}{The columns \emph{within} which there is
+  data that need to be sorted. See Details.}
+
+  \item{at.start}{Should the pattern matching be from the
+  start of the variable name? Defaults to \code{TRUE}.}
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
-\usage{
-df.sorter(data, var.order = names(data), col.sort = NULL, at.start = TRUE)
-}
-%- maybe also 'usage' for other objects documented here.
-\arguments{
-  \item{data}{
-%%     ~~Describe \code{data} here~~
-}
-  \item{var.order}{
-%%     ~~Describe \code{var.order} here~~
-}
-  \item{col.sort}{
-%%     ~~Describe \code{col.sort} here~~
-}
-  \item{at.start}{
-%%     ~~Describe \code{at.start} here~~
-}
+  The \code{\link{df.sorter}} function allows you to sort a
+  \code{\link{data.frame}} by columns or rows or both. You
+  can also quickly subset data columns by using the
+  \code{var.order} argument.
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
+  \emph{var.order} \itemize{ \item Defaults to
+  \code{names(data)}, which keeps the variables in the
+  original order. \item Variables can be referred to either
+  by a vector of their index numbers or by a vector of the
+  variable name; partial name matching also works, but
+  requires that the partial match identifies similar
+  columns uniquely (see Examples). Basic subsetting can
+  also be done using \code{var.order} simply by omitting
+  the variables you want to drop. } \emph{col.sort}
+  \itemize{ \item Defaults to \code{NULL}, which means no
+  sorting takes place. Variables can be referred to either
+  by a vector of their index numbers or by a vector of the
+  variable names; full names must be provided. }
 }
 \note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+  If you are sorting both by variables and within the
+  columns and using numeric indexes as opposed to variable
+  names, the \code{col.sort} order should be based on the
+  location of the columns in the new \code{data.frame}, not
+  the original \code{data.frame}.
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+# Make up some data
+set.seed(1)
+dat = data.frame(id = rep(1:5, each=3), times = rep(1:3, 5),
+                 measure1 = rnorm(15), score1 = sample(300, 15),
+                 code1 = replicate(15, paste(sample(LETTERS[1:5], 3),
+                                             sep="", collapse="")),
+                 measure2 = rnorm(15), score2 = sample(150:300, 15),
+                 code2 = replicate(15, paste(sample(LETTERS[1:5], 3),
+                                             sep="", collapse="")))
+# Preview your data
+dat
 
-## The function is currently defined as
-function (data, var.order = names(data), col.sort = NULL, at.start = TRUE) 
-{
-    if (is.numeric(var.order)) 
-        var.order = colnames(data)[var.order]
-    else var.order = var.order
-    if (isTRUE(at.start)) {
-        x = unlist(lapply(var.order, function(x) sort(grep(paste("^", 
-            x, sep = "", collapse = ""), names(data), value = TRUE))))
-    }
-    else if (!isTRUE(at.start)) {
-        x = unlist(lapply(var.order, function(x) sort(grep(x, 
-            names(data), value = TRUE))))
-    }
-    y = data[, x]
-    if (is.null(col.sort)) {
-        y
-    }
-    else if (is.numeric(col.sort)) {
-        y[do.call(order, y[colnames(y)[col.sort]]), ]
-    }
-    else if (!is.numeric(col.sort)) {
-        y[do.call(order, y[col.sort]), ]
-    }
-  }
+# Change the variable order, grouping related columns
+# Note that you do not need to specify full variable names,
+#    just enough that the variables can be uniquely identified
+head(df.sorter(dat, var.order = c("id", "ti", "cod", "mea", "sco")))
+
+# As above, but sorted by 'times' and then 'id'
+head(df.sorter(dat,
+               var.order = c("id", "tim", "cod", "mea", "sco"),
+               col.sort = c(2, 1)))
+
+# Drop 'measure1' and 'measure2', sort by 'times', and 'score1'
+head(df.sorter(dat,
+               var.order = c("id", "tim", "sco", "cod"),
+               col.sort = c(2, 3)))
+
+# Just sort by columns, first by 'times' then by 'id'
+head(df.sorter(dat, col.sort = c("times", "id")))
+
+# Pattern matching anywhere in the variable name
+head(df.sorter(dat, var.order= "co", at.start=FALSE))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+  Ananda Mahto
+}
+\references{
+  %% ~put references to the literature/web site here ~
+}
+

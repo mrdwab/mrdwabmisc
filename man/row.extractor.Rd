@@ -1,115 +1,66 @@
 \name{row.extractor}
 \alias{row.extractor}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-%%  ~~function to do ... ~~
+\title{Extract min/median/max/quantile rows from a \code{data.frame}}
+\usage{
+  row.extractor(data, extract.by, what = "all")
+}
+\arguments{
+  \item{data}{The source \code{data.frame}.}
+
+  \item{extract.by}{The column which will be used as the
+  reference for extraction; can be specified either by the
+  column number or the variable name.}
+
+  \item{what}{Options are \code{"min"} (for all rows
+  matching the minimum value), \code{"median"} (for the
+  median row or rows), \code{"max"} (for all rows matching
+  the maximum value), or \code{"all"} (for min, median, and
+  max); alternatively, a numeric vector can be specified
+  with the desired quantiles, for instance \code{c(0, .25,
+  .5, .75, 1)}.}
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
-\usage{
-row.extractor(data, extract.by, what = "all")
-}
-%- maybe also 'usage' for other objects documented here.
-\arguments{
-  \item{data}{
-%%     ~~Describe \code{data} here~~
-}
-  \item{extract.by}{
-%%     ~~Describe \code{extract.by} here~~
-}
-  \item{what}{
-%%     ~~Describe \code{what} here~~
-}
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+  The \code{\link{row.extractor}} function takes a
+  \code{data.frame} and extracts rows with the min, median,
+  or max values of a given variable, or extracts rows with
+  specific quantiles of a given variable.
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+# Make up some data
+set.seed(1)
+dat = data.frame(V1 = 1:50, V2 = rnorm(50),
+                V3 = round(abs(rnorm(50)), digits=2),
+                V4 = sample(1:30, 50, replace=TRUE))
+# Get a sumary of the data
+summary(dat)
 
-## The function is currently defined as
-function (data, extract.by, what = "all") 
-{
-    if (is.numeric(extract.by)) {
-        extract.by = extract.by
-    }
-    else if (is.numeric(extract.by) != 0) {
-        extract.by = which(colnames(data) \%in\% "extract.by")
-    }
-    if (is.character(what)) {
-        which.median = function(data, extract.by) {
-            a = data[, extract.by]
-            if (length(a)\%\%2 != 0) {
-                which(a == median(a))
-            }
-            else if (length(a)\%\%2 == 0) {
-                b = sort(a)[c(length(a)/2, length(a)/2 + 1)]
-                c(max(which(a == b[1])), min(which(a == b[2])))
-            }
-        }
-        X1 = data[which(data[extract.by] == min(data[extract.by])), 
-            ]
-        X2 = data[which(data[extract.by] == max(data[extract.by])), 
-            ]
-        X3 = data[which.median(data, extract.by), ]
-        if (identical(what, "min")) {
-            X1
-        }
-        else if (identical(what, "max")) {
-            X2
-        }
-        else if (identical(what, "median")) {
-            X3
-        }
-        else if (identical(what, "all")) {
-            rbind(X1, X3, X2)
-        }
-    }
-    else if (is.numeric(what)) {
-        which.quantile <- function(data, extract.by, what, na.rm = FALSE) {
-            x = data[, extract.by]
-            if (!na.rm & any(is.na(x))) 
-                return(rep(NA_integer_, length(what)))
-            o <- order(x)
-            n <- sum(!is.na(x))
-            o <- o[seq_len(n)]
-            nppm <- n * what - 0.5
-            j <- floor(nppm)
-            h <- ifelse((nppm == j) & ((j\%\%2L) == 0L), 0, 1)
-            j <- j + h
-            j[j == 0] <- 1
-            o[j]
-        }
-        data[which.quantile(data, extract.by, what), ]
-    }
-  }
+# Get the rows corresponding to the 'min', 'median', and 'max' of 'V4'
+row.extractor(dat, 4)
+
+# Get the 'min' rows only, referenced by the variable name
+row.extractor(dat, "V4", "min")
+
+# Get the 'median' rows only. Notice that there are two rows
+#    since we have an even number of cases and true median
+#    is the mean of the two central sorted values
+row.extractor(dat, "V4", "median")
+
+# Get the rows corresponding to the deciles of 'V3'
+row.extractor(dat, "V3", seq(0.1, 1, 0.1))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+  Ananda Mahto
+}
+\references{
+  \itemize{ \item \code{which.quantile} function by
+  cbeleites:
+  \url{http://stackoverflow.com/users/755257/cbeleites}
+  \item See:
+  \url{http://stackoverflow.com/q/10256503/1270695} }
+}
+\seealso{
+  \code{\link{min}}, \code{\link{max}},
+  \code{\link{median}}, \code{\link{which.min}},
+  \code{\link{which.max}}, \code{\link{quantile}}
+}
+
