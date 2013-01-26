@@ -1,55 +1,61 @@
-## @knitr dfsorter
-
-
-#'%% ~~function to do ... ~~
+#'Sort a \code{data.frame} by rows or columns
 #'
-#'%% ~~ A concise (1-5 lines) description of what the function does. ~~
+#'The \code{\link{df.sorter}} function allows you to sort a \code{\link{data.frame}} by columns or rows or both. You can also quickly subset data columns by using the \code{var.order} argument.
 #'
-#'%% ~~ If necessary, more details than the description above ~~
+#'@param data The source \code{data.frame}.
+#'@param var.order The new order in which you want the variables to appear. See Details
+#'@param col.sort The columns \emph{within} which there is data that need to be sorted. See Details.
+#'@param at.start Should the pattern matching be from the start of the variable name? Defaults to \code{TRUE}.
 #'
-#'@param data %% ~~Describe \code{data} here~~
-#'@param var.order %% ~~Describe \code{var.order} here~~
-#'@param col.sort %% ~~Describe \code{col.sort} here~~
-#'@param at.start %% ~~Describe \code{at.start} here~~
-#'@return %% ~Describe the value returned %% If it is a LIST, use %%
-#'\item{comp1 }{Description of 'comp1'} %% \item{comp2 }{Description of
-#''comp2'} %% ...
-#'@note %% ~~further notes~~
-#'@author %% ~~who you are~~
-#'@seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
+#'@details \emph{var.order}
+#'\itemize{
+#'\item Defaults to \code{names(data)}, which keeps the variables in the original order.
+#'\item Variables can be referred to either by a vector of their index numbers or by a vector of the variable name; partial name matching also works, but requires that the partial match identifies similar columns uniquely (see Examples).
+#'Basic subsetting can also be done using \code{var.order} simply by omitting the variables you want to drop.
+#'}
+#'\emph{col.sort}
+#'\itemize{
+#'\item Defaults to \code{NULL}, which means no sorting takes place.
+#'Variables can be referred to either by a vector of their index numbers or by a vector of the variable names; full names must be provided.
+#'}
+#'
+#'@note If you are sorting both by variables and within the columns and using numeric indexes as opposed to variable names, the \code{col.sort} order should be based on the location of the columns in the new \code{data.frame}, not the original \code{data.frame}.
+#'@author Ananda Mahto
 #'@references %% ~put references to the literature/web site here ~
-#'@keywords ~kwd1 ~kwd2
 #'@examples
 #'
-#'##---- Should be DIRECTLY executable !! ----
-#'##-- ==>  Define data, use random,
-#'##--	or do  help(data=index)  for the standard data sets.
+#'# Make up some data
+#'set.seed(1)
+#'dat = data.frame(id = rep(1:5, each=3), times = rep(1:3, 5),
+#'                  measure1 = rnorm(15), score1 = sample(300, 15), 
+#'                  code1 = replicate(15, paste(sample(LETTERS[1:5], 3), 
+#'                                              sep="", collapse="")),
+#'                  measure2 = rnorm(15), score2 = sample(150:300, 15),
+#'                  code2 = replicate(15, paste(sample(LETTERS[1:5], 3), 
+#'                                              sep="", collapse="")))
+#'# Preview your data
+#'dat
 #'
-#'## The function is currently defined as
-#'function (data, var.order = names(data), col.sort = NULL, at.start = TRUE) 
-#'{
-#'    if (is.numeric(var.order)) 
-#'        var.order = colnames(data)[var.order]
-#'    else var.order = var.order
-#'    if (isTRUE(at.start)) {
-#'        x = unlist(lapply(var.order, function(x) sort(grep(paste("^", 
-#'            x, sep = "", collapse = ""), names(data), value = TRUE))))
-#'    }
-#'    else if (!isTRUE(at.start)) {
-#'        x = unlist(lapply(var.order, function(x) sort(grep(x, 
-#'            names(data), value = TRUE))))
-#'    }
-#'    y = data[, x]
-#'    if (is.null(col.sort)) {
-#'        y
-#'    }
-#'    else if (is.numeric(col.sort)) {
-#'        y[do.call(order, y[colnames(y)[col.sort]]), ]
-#'    }
-#'    else if (!is.numeric(col.sort)) {
-#'        y[do.call(order, y[col.sort]), ]
-#'    }
-#'  }
+#'# Change the variable order, grouping related columns
+#'# Note that you do not need to specify full variable names,
+#'#    just enough that the variables can be uniquely identified
+#'head(df.sorter(dat, var.order = c("id", "ti", "cod", "mea", "sco")))
+#'
+#'# As above, but sorted by 'times' and then 'id'
+#'head(df.sorter(dat, 
+#'                var.order = c("id", "tim", "cod", "mea", "sco"), 
+#'                col.sort = c(2, 1)))
+#'                
+#'# Drop 'measure1' and 'measure2', sort by 'times', and 'score1'
+#'head(df.sorter(dat, 
+#'                var.order = c("id", "tim", "sco", "cod"), 
+#'                col.sort = c(2, 3)))
+#'
+#'# Just sort by columns, first by 'times' then by 'id'
+#'head(df.sorter(dat, col.sort = c("times", "id")))
+#'
+#'# Pattern matching anywhere in the variable name
+#'head(df.sorter(dat, var.order= "co", at.start=FALSE))
 #'
 df.sorter <- function(data, var.order=names(data), 
                       col.sort=NULL, at.start=TRUE ) {
