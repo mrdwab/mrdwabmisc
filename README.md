@@ -8,7 +8,7 @@ Install using:
 ```r
 # install.packages("devtools")
 library(devtools)
-install_github("StataDCTutils", "mrdwab")
+install_github("mrdwabmisc", "mrdwab")
 ```
 
 Documentation [PDF](https://github.com/mrdwab/mrdwabmisc/blob/master/mrdwabmisc.pdf?raw=true)
