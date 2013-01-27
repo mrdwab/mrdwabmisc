@@ -15,3 +15,4 @@ Collate:
     'random.names.R'
     'row.extractor.R'
     'sample.size.R'
+    'stratified.R'
