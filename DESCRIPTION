@@ -14,3 +14,4 @@ Collate:
     'multi.freq.table.R'
     'random.names.R'
     'row.extractor.R'
+    'sample.size.R'
