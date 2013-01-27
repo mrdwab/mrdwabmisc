@@ -16,3 +16,4 @@ Collate:
     'row.extractor.R'
     'sample.size.R'
     'stratified.R'
+    'stringseed.sampling.R'
