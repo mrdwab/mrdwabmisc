@@ -34,3 +34,27 @@
 #'head(table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph)))
 #'
 NULL
+
+#'Example dataset with concatenated cells
+#'
+#'This is a sample dataset to demonstrate the different features of the \code{\link{concat.split}} function. 
+#'
+#' @docType data 
+#' @keywords datasets 
+#' @name concat.test 
+#' @usage data(concatenated) 
+#' @format A data.frame in which many columns contain concatenated cells
+NULL
+NULL
+
+#'List of first names and surnames to generate random names
+#'
+#'This is the default dataset used by the \code{\link{RandomNames}} function. 
+#'
+#' @docType data 
+#' @keywords datasets 
+#' @name CensusNames1990 
+#' @usage data(CensusNames) 
+#' @format A list of first names and surnames, split by gender and how common the first names are. 
+#' @references \emph{Genealogy Data: Frequently Occurring Surnames from Census 1990--Names Files}: \url{http://www.census.gov/genealogy/www/data/1990surnames/names_files.html}
+NULL
