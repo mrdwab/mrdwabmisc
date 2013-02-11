@@ -1,5 +1,6 @@
 \docType{data}
 \name{concat.test}
+\alias{concatenated}
 \alias{concat.test}
 \title{Example dataset with concatenated cells}
 \format{A data.frame in which many columns contain concatenated cells}

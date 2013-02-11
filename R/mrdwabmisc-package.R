@@ -42,6 +42,7 @@ NULL
 #' @docType data 
 #' @keywords datasets 
 #' @name concat.test 
+#' @aliases concat.test concatenated
 #' @usage data(concatenated) 
 #' @format A data.frame in which many columns contain concatenated cells
 NULL
@@ -54,6 +55,7 @@ NULL
 #' @docType data 
 #' @keywords datasets 
 #' @name CensusNames1990 
+#' @aliases CensusNames1990 CensusNames
 #' @usage data(CensusNames) 
 #' @format A list of first names and surnames, split by gender and how common the first names are. 
 #' @references \emph{Genealogy Data: Frequently Occurring Surnames from Census 1990--Names Files}: \url{http://www.census.gov/genealogy/www/data/1990surnames/names_files.html}
