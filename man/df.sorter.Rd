@@ -83,7 +83,4 @@ head(df.sorter(dat, var.order= "co", at.start=FALSE))
 \author{
   Ananda Mahto
 }
-\references{
-  %% ~put references to the literature/web site here ~
-}
 

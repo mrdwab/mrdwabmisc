@@ -21,7 +21,6 @@
 #'
 #'@note If you are sorting both by variables and within the columns and using numeric indexes as opposed to variable names, the \code{col.sort} order should be based on the location of the columns in the new \code{data.frame}, not the original \code{data.frame}.
 #'@author Ananda Mahto
-#'@references %% ~put references to the literature/web site here ~
 #'@examples
 #'
 #'# Make up some data
