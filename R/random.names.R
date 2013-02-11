@@ -60,6 +60,7 @@
 #'str(myCustomNames)
 #'
 #'RandomNames(N = 15, dataset = myCustomNames)
+#'\dontshow{rm(CensusNames1990, myCustomNames)}
 #'
 RandomNames <- function(N = 100, cat = NULL, gender = NULL, 
                         MFprob = NULL, dataset = NULL) {

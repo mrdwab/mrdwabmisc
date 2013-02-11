@@ -22,6 +22,17 @@
   script was run} .txt"} and will be found in your current
   working directory.}
 }
+\value{
+  This function returns a list with the \code{class}
+  "stringSeedSampling" and uses a custom \code{print}
+  method. The list items are: \itemize{ \item \code{input}:
+  The "metadata" to remind you of your input parameters.
+  \item \code{samples}: The samples resulting from the
+  specified input parameters. In the case of batch sampling
+  being used, \code{samples} will be a named list. } Use
+  \code{print.default(your-object-here)} to view the
+  underlying list.
+}
 \description{
   The \code{\link{stringseed.sampling}} function is
   designed as a batch sampling function that allows the
@@ -50,6 +61,7 @@ sample(120, 30)
 
 # What about using the function on a single input?
 stringseed.sampling("Santa Barbara", 1920, 100)
+\dontshow{rm(myListOfPlaces)}
 }
 \author{
   Ananda Mahto

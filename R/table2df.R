@@ -81,6 +81,8 @@
 #'          as.multitable = TRUE, direction = "wide")
 #'}
 #'
+#'\dontshow{rm(HT1, HT2, HT3, HT4, handedness)}
+#'
 #'
 table2df <- function(mytable, as.multitable = FALSE, direction = "wide") {
   

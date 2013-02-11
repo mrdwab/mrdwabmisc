@@ -34,6 +34,7 @@
 #'
 #'# Get the rows corresponding to the deciles of 'V3'
 #'row.extractor(dat, "V3", seq(0.1, 1, 0.1)) 
+#'\dontshow{rm(dat)}
 #'
 row.extractor = function(data, extract.by, what="all") {
   # 

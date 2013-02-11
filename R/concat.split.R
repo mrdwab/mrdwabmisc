@@ -72,6 +72,7 @@
 #'                                        splitchars[x],
 #'                                        drop.col=TRUE)
 #'                                        }))))
+#'\dontshow{rm(concat.test)}
 #'                                       
 concat.split <- function(data, split.col, sep = ",", structure = "compact",
                         mode = NULL, drop.col = FALSE, fixed = FALSE) {

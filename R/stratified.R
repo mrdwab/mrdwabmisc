@@ -37,10 +37,10 @@
 #'# Generate a couple of sample data.frames to play with
 #'set.seed(1)
 #'dat1 <- data.frame(ID = 1:100,
-#'                    A = sample(c("AA", "BB", "CC", "DD", "EE"), 100, replace=T),
+#'                    A = sample(c("AA", "BB", "CC", "DD", "EE"), 100, replace = TRUE),
 #'                    B = rnorm(100), C = abs(round(rnorm(100), digits=1)),
-#'                    D = sample(c("CA", "NY", "TX"), 100, replace=T),
-#'                    E = sample(c("M", "F"), 100, replace=T))
+#'                    D = sample(c("CA", "NY", "TX"), 100, replace = TRUE),
+#'                    E = sample(c("M", "F"), 100, replace = TRUE))
 #'dat2 <- data.frame(ID = 1:20,
 #'                    A = c(rep("AA", 5), rep("BB", 10),
 #'                          rep("CC", 3), rep("DD", 2)))
@@ -75,6 +75,7 @@
 #'names(which(table(interaction(dat1[c("E", "D", "A")])) < 2))
 #'
 #'names(which(table(interaction(s.out[c("E", "D", "A")])) < 2))
+#'\dontshow{rm(dat1, dat2, s.out)}
 #'
 stratified <- function(df, group, size, seed = NULL, ...) {
 

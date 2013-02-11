@@ -78,6 +78,7 @@ head(df.sorter(dat, col.sort = c("times", "id")))
 
 # Pattern matching anywhere in the variable name
 head(df.sorter(dat, var.order= "co", at.start=FALSE))
+\dontshow{rm(dat)}
 }
 \author{
   Ananda Mahto

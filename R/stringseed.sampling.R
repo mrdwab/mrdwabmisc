@@ -6,6 +6,12 @@
 #'@param N The "population" from which to draw the sample.
 #'@param n The desired number of samples.
 #'@param write.output Logical. Should the output be written to a file? Defaults to \code{FALSE}. If \code{TRUE}, a csv file is written with the sample "metadata", and a plain text file is written with the details of the resulting sample. The names of the files written are \code{"Sample frame generated on {date the script was run} .csv"} and \code{"Samples generated on {date the script was run} .txt"} and will be found in your current working directory.
+#'@return This function returns a list with the \code{class} "stringSeedSampling" and uses a custom \code{print} method. The list items are:
+#'\itemize{
+#'\item \code{input}: The "metadata" to remind you of your input parameters.
+#'\item \code{samples}: The samples resulting from the specified input parameters. In the case of batch sampling being used, \code{samples} will be a named list.
+#'}
+#'Use \code{print.default(your-object-here)} to view the underlying list.
 #'
 #'@author Ananda Mahto
 #'@seealso \code{\link[digest:digest]{digest}}
@@ -33,17 +39,16 @@
 #'
 #'# What about using the function on a single input?
 #'stringseed.sampling("Santa Barbara", 1920, 100)
+#'\dontshow{rm(myListOfPlaces)}
 #'
 stringseed.sampling <- function(seedbase, N, n, write.output = FALSE) {
-  options(digits = 22)
-  options(scipen = 999)
-  
-  require(digest)
-  hexval = paste0("0x", sapply(seedbase, digest, "crc32"))
-  seeds = type.convert(hexval) %% .Machine$integer.max
+
+  hexval <- paste0("0x", sapply(seedbase, digest, "crc32"))
+  seeds <- type.convert(hexval) %% .Machine$integer.max
+  seeds <- signif(seeds, 15)
   seedbase = as.character(seedbase)
   
-  temp <- data.frame(seedbase, N, n, seeds)
+  temp <- data.frame(seedbase, N, n, seeds, stringsAsFactors = FALSE)
   if (length(seedbase) == 1) {
     set.seed(temp$seeds); sample.list <- sample(temp$N, temp$n)
   } else {
@@ -54,7 +59,8 @@ stringseed.sampling <- function(seedbase, N, n, write.output = FALSE) {
   
   temp <- list(
     input = data.frame(seedbase = seedbase, populations = N,
-                       samplesizes = n, seeds = seeds),
+                       samplesizes = n, seeds = seeds,
+                       stringsAsFactors = FALSE),
     samples = sample.list)
   if(isTRUE(write.output)) {
     write.csv(temp[[1]], file=paste("Sample frame generated on",
@@ -63,5 +69,6 @@ stringseed.sampling <- function(seedbase, N, n, write.output = FALSE) {
                               Sys.Date(), ".txt", collapse=""))
   }
   rm(.Random.seed, envir=globalenv()) # "resets" the seed
+  class(temp) <- c("stringSeedSampling", class(temp))
   temp
 }

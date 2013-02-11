@@ -67,6 +67,9 @@
   other tables.
 }
 \examples{
+## ========================================= ##
+## ============= BOOLEAN DATA ============== ##
+
 # Make up some data
 set.seed(1)
 dat <- data.frame(A = sample(c(0, 1), 20, replace=TRUE),
@@ -101,9 +104,8 @@ multi.freq.table(dat[c(1, 2, 4)], NAto0=FALSE,
 # View a basic table.
 multi.freq.table(dat, basic=TRUE)
 
-#================================#
-
-# NON-BOOLEAN DATA
+## ========================================= ##
+## =========== NON-BOOLEAN DATA ============ ##
 
 # Make up some data
 dat2 <- structure(list(Reason.1 = c("one", "one", "two", "one", "two",
@@ -119,9 +121,9 @@ dat2 <- structure(list(Reason.1 = c("one", "one", "two", "one", "two",
 # View your data
 dat2
 
-# The following will not work.
+\dontrun{# The following will not work.
 # The data are not factored.
-multi.freq.table(dat2, boolean=FALSE)
+multi.freq.table(dat2, boolean=FALSE)}
 
 # Factor create the factors.
 multi.freq.table(dat2, boolean=FALSE,
@@ -131,6 +133,7 @@ multi.freq.table(dat2, boolean=FALSE,
 multi.freq.table(dat2, boolean=FALSE,
                  factors = c("one", "two", "three"),
                  basic=TRUE)
+\dontshow{rm(dat, dat2)}
 }
 \author{
   Ananda Mahto

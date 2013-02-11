@@ -109,6 +109,7 @@ head(do.call(cbind,
                                        splitchars[x],
                                        drop.col=TRUE)
                                        }))))
+\dontshow{rm(concat.test)}
 }
 \author{
   Ananda Mahto

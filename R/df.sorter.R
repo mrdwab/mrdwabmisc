@@ -56,6 +56,7 @@
 #'
 #'# Pattern matching anywhere in the variable name
 #'head(df.sorter(dat, var.order= "co", at.start=FALSE))
+#'\dontshow{rm(dat)}
 #'
 df.sorter <- function(data, var.order=names(data), 
                       col.sort=NULL, at.start=TRUE ) {
