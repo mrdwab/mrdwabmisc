@@ -1,1 +1,10 @@
-exportPattern("^[[:alpha:]]+")
+export(concat.split,
+       df.sorter,
+       multi.freq.table,
+       RandomNames,
+       row.extractor,
+       sample.size,
+       stratified,
+       stringseed.sampling,
+       table2df)
+S3method(print, stringSeedSampling)
