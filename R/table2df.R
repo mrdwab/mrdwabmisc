@@ -68,6 +68,9 @@
 #'HT4
 #'table2df(HT4)
 #'
+#'# Applied to a single-row table
+#'table2df(xtabs(breaks ~ wool, warpbreaks))
+#'
 #'## ======================================= ##
 #'## ========== OTHER EXAMPLES ============= ##
 #'
@@ -97,49 +100,60 @@ table2df <- function(mytable, as.multitable = FALSE, direction = "wide") {
            MT = { as.multitable <- TRUE })
   }
   
-  tablearray2list <- function(dataset) {
-    # Converts an array of tables to a list of tables
-    y <- ls()
-    temp <- dim(dataset)[-c(1, 2)]
-    temp1 <- capture.output(dataset)
-    tempnames <- gsub(", , ", "", temp1[grep(", , ", temp1)])
-    tempnames <- sapply(
-      strsplit(tempnames, " = |, "), 
-      function(x) paste(x[1:length(x) %% 2 == 0], collapse = "."))
-    combinations <- expand.grid(lapply(temp, seq))
-    tempsets <- apply(combinations, 1, function(x)
-      paste(y, "[ , , ", paste(x, collapse = ", "), "]"))
-    mylist <- lapply(tempsets, function(x) eval(parse(text = x)))
-    names(mylist) <- tempnames
-    mylist
-  }
-  
-  directionwide <- function(mydata) {
-    # Function to assign proper names to resulting data.frames
-    ifelse(class(mydata) == "ftable", 
-           mydata <- mydata, mydata <- ftable(mydata))
-    dfrows <- expand.grid(rev(attr(mydata, "row.vars")))
-    dfcols <- as.data.frame.matrix(mydata)
-    names(dfcols) <- interaction(expand.grid(attr(mydata, "col.vars")))
-    cbind(dfrows, dfcols)
-  }
-  
-  directionlong <- function(mydata) {
-    # Basic tables are easy to convert to data.frames
-    mydata <- as.table(mydata)
-    as.data.frame(mydata)
-  }
-  
-  if (isTRUE(as.multitable)) {
-    temp <- tablearray2list(mytable)
-    switch(direction,
-           wide = { lapply(temp, directionwide) },
-           long = { lapply(temp, directionlong) },
-           stop(">>direction<< must be either wide or long"))
+  # Deal swiftly if it is a single row table
+  if (length(dim(mytable)) == 1) {
+    out <- setNames(as.data.frame(t(data.frame(mytable)[-1])), 
+             data.frame(mytable)[, 1])
+    out$Var1 <- paste(row.names(out), 
+                      names(attr(mytable, "dimnames")), 
+                      sep = ".")
+    row.names(out) <- NULL
+    out[, c("Var1", setdiff(names(out), "Var1"))]
   } else {
-    switch(direction,
-           wide = { directionwide(mytable) },
-           long = { directionlong(mytable) },
-           stop(">>direction<< must be either wide or long"))
+    tablearray2list <- function(dataset) {
+      # Converts an array of tables to a list of tables
+      y <- ls()
+      temp <- dim(dataset)[-c(1, 2)]
+      temp1 <- capture.output(dataset)
+      tempnames <- gsub(", , ", "", temp1[grep(", , ", temp1)])
+      tempnames <- sapply(
+        strsplit(tempnames, " = |, "), 
+        function(x) paste(x[1:length(x) %% 2 == 0], collapse = "."))
+      combinations <- expand.grid(lapply(temp, seq))
+      tempsets <- apply(combinations, 1, function(x)
+        paste(y, "[ , , ", paste(x, collapse = ", "), "]"))
+      mylist <- lapply(tempsets, function(x) eval(parse(text = x)))
+      names(mylist) <- tempnames
+      mylist
+    }
+    
+    directionwide <- function(mydata) {
+      # Function to assign proper names to resulting data.frames
+      ifelse(class(mydata) == "ftable", 
+             mydata <- mydata, mydata <- ftable(mydata))
+      dfrows <- expand.grid(rev(attr(mydata, "row.vars")))
+      dfcols <- as.data.frame.matrix(mydata)
+      names(dfcols) <- interaction(expand.grid(attr(mydata, "col.vars")))
+      cbind(dfrows, dfcols)
+    }
+    
+    directionlong <- function(mydata) {
+      # Basic tables are easy to convert to data.frames
+      mydata <- as.table(mydata)
+      as.data.frame(mydata)
+    }
+    
+    if (isTRUE(as.multitable)) {
+      temp <- tablearray2list(mytable)
+      switch(direction,
+             wide = { lapply(temp, directionwide) },
+             long = { lapply(temp, directionlong) },
+             stop(">>direction<< must be either wide or long"))
+    } else {
+      switch(direction,
+             wide = { directionwide(mytable) },
+             long = { directionlong(mytable) },
+             stop(">>direction<< must be either wide or long"))
+    }
   }
 }

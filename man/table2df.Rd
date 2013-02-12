@@ -86,6 +86,9 @@ HT4 <- ftable(handedness,
 HT4
 table2df(HT4)
 
+# Applied to a single-row table
+table2df(xtabs(breaks ~ wool, warpbreaks))
+
 ## ======================================= ##
 ## ========== OTHER EXAMPLES ============= ##
 
