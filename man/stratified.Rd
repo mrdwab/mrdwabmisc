@@ -2,7 +2,8 @@
 \alias{stratified}
 \title{Sample from a \code{data.frame} according to a stratification variable}
 \usage{
-  stratified(df, group, size, seed = NULL, ...)
+  stratified(df, group, size, select = NULL, seed = NULL,
+    ...)
 }
 \arguments{
   \item{df}{The source \code{data.frame}.}
@@ -27,6 +28,11 @@
   get if you tabulated the grouping variable (usually
   alphabetic order); alternatively, you can name each value
   to ensure it is properly matched. }}
+
+  \item{select}{A named list containing levels from the
+  "group" variables in which you are interested. The list
+  names must be present as variable names for the input
+  \code{data.frame}.}
 
   \item{seed}{The seed that you want to use (using
   \code{\link{set.seed}} \emph{within} the function, if
@@ -101,6 +107,9 @@ summary(dat2)
 # Let's take a 10\% sample from all -A- groups in dat1, seed = 1
 stratified(dat1, "A", .1, seed = 1)
 
+# Let's take a 10\% sample from only "AA" and "BB" groups from -A- in dat1, seed = 1
+stratified(dat1, "A", .1, select = list(A = c("AA", "BB")), seed = 1)
+
 # Let's take 5 samples from all -D- groups in dat1,
 #   seed = 1, specified by column number
 stratified(dat1, group = 5, size = 5, seed = 1)
@@ -112,6 +121,14 @@ stratified(dat1, "A", size = c(3, 5, 4, 5, 2), seed = 1)
 # Use a two-column strata: -E- and -D-
 #   -E- varies more slowly, so it is better to put that first
 stratified(dat1, c("E", "D"), size = .15, seed = 1)
+
+# Use a two-column strata (-E- and -D-) but only interested in
+#   cases where -E- == "M"
+stratified(dat1, c("E", "D"), .15, select = list(E = "M"), seed = 1)
+
+## As above, but where -E- == "M" and -D- == "CA" or "TX"
+stratified(dat1, c("E", "D"), .15,
+          select = list(E = "M", D = c("CA", "TX")), seed = 1)
 
 # Use a three-column strata: -E-, -D-, and -A-
 s.out <- stratified(dat1, c("E", "D", "A"), size = 2, seed = 1)

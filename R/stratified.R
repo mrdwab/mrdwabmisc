@@ -9,6 +9,7 @@
 #'\item If \code{size} is a single positive integer, it will be assumed that you want the same number of samples from each group.
 #'\item If \code{size} is a vector, the function will check to see whether the length of the vector matches the number of groups and use those specified values as the desired sample sizes. The values in the vector should be in the same order as you would get if you tabulated the grouping variable (usually alphabetic order); alternatively, you can name each value to ensure it is properly matched.
 #'}
+#'@param select A named list containing levels from the "group" variables in which you are interested. The list names must be present as variable names for the input \code{data.frame}.
 #'@param seed The seed that you want to use (using \code{\link{set.seed}} \emph{within} the function, if any. Defaults to \code{NULL}.
 #'@param \dots Further arguments to be passed to the \code{\link{sample}} function.
 #'@note \emph{Slightly different sizes than requested}
@@ -51,6 +52,9 @@
 #'# Let's take a 10% sample from all -A- groups in dat1, seed = 1
 #'stratified(dat1, "A", .1, seed = 1)
 #'
+#'# Let's take a 10% sample from only "AA" and "BB" groups from -A- in dat1, seed = 1
+#'stratified(dat1, "A", .1, select = list(A = c("AA", "BB")), seed = 1)
+#'
 #'# Let's take 5 samples from all -D- groups in dat1, 
 #'#   seed = 1, specified by column number
 #'stratified(dat1, group = 5, size = 5, seed = 1)
@@ -62,6 +66,14 @@
 #'# Use a two-column strata: -E- and -D-
 #'#   -E- varies more slowly, so it is better to put that first
 #'stratified(dat1, c("E", "D"), size = .15, seed = 1)
+#'
+#'# Use a two-column strata (-E- and -D-) but only interested in
+#'#   cases where -E- == "M"
+#'stratified(dat1, c("E", "D"), .15, select = list(E = "M"), seed = 1)
+#'
+#'## As above, but where -E- == "M" and -D- == "CA" or "TX"
+#'stratified(dat1, c("E", "D"), .15, 
+#'           select = list(E = "M", D = c("CA", "TX")), seed = 1)
 #'
 #'# Use a three-column strata: -E-, -D-, and -A-
 #'s.out <- stratified(dat1, c("E", "D", "A"), size = 2, seed = 1)
@@ -77,9 +89,20 @@
 #'names(which(table(interaction(s.out[c("E", "D", "A")])) < 2))
 #'\dontshow{rm(dat1, dat2, s.out)}
 #'
-stratified <- function(df, group, size, seed = NULL, ...) {
-
-  df.interaction <- interaction(df[group])
+stratified <- function(df, group, size, select = NULL, seed = NULL, ...) {
+  
+  if (is.null(select)) {
+    df <- df
+  } else {
+    if (is.null(names(select))) stop("'select' must be a named list")
+    if (!all(names(selectme) %in% names(dat1))) 
+      stop("Please verify your 'select' argument")
+    temp <- sapply(names(select), 
+                   function(x) df[[x]] %in% select[[x]])
+    df <- df[rowSums(temp) == length(select), ]
+  }
+  
+  df.interaction <- interaction(df[group], drop = TRUE)
   df.table <- table(df.interaction)
   df.split <- split(df, df.interaction)
   
@@ -130,8 +153,10 @@ stratified <- function(df, group, size, seed = NULL, ...) {
       names(df.split),
       function(x) { set.seed(seed)
                     df.split[[x]][sample(df.table[x], 
-                                         n[x], ...), ] }) })
+                                         n[x], ...), ] })})
+  if (!is.null(seed)) {
+    rm(.Random.seed, envir=.GlobalEnv) # "resets" the seed
+  }
   
-  rm(.Random.seed, envir=.GlobalEnv) # "resets" the seed
   do.call("rbind", temp)
 }
