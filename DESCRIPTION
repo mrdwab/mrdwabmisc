@@ -9,7 +9,8 @@ Description: Miscellaneous R functions, some utility, and others to clean and
     organize data.
 Depends:
     R (>= 2.10),
-    digest
+    digest,
+    reshape2
 License: GPL-2
 LazyLoad: yes
 Collate:
@@ -24,3 +25,19 @@ Collate:
     'table2df.R'
     'mrdwabmiscPrintMethods.R'
     'mrdwabmisc-package.R'
+    'aggregate2.R'
+    'CBIND.R'
+    'dfcols.list.R'
+    'FacsToChars.R'
+    'getSize.R'
+    'LinearizeNestedList.R'
+    'load.scripts.and.data.R'
+    'makemeNA.R'
+    'mv.R'
+    'RBIND.R'
+    'read.so.R'
+    'round2.R'
+    'SampleToSum.R'
+    'subsequence.R'
+    'unlistDF.R'
+    'unbalancedReshape.R'

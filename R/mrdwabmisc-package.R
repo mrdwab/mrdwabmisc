@@ -1,17 +1,112 @@
+
+
+#'An assortment of R snippets
+#'
+#'The \emph{AMsnippets} package is a collection of utilities that make certain
+#'repetitious or annoying tasks less repetitious or less annoying. Some of the
+#'functions were written as answers to questions at Stack Overflow; in such
+#'cases, a link to the original question has been provided.
+#'
+#'\tabular{ll}{ Package: \tab AMsnippets\cr Type: \tab Package\cr Version: \tab
+#'1.0\cr Date: \tab 2013-02-08\cr License: \tab GPL-2\cr }
+#'
+#'@name AMsnippets-package
+#'@aliases AMsnippets AMsnippets-package
+#'@docType package
+#'@author Ananda Mahto, with functions by Rolf Turner, Akhil S Bhel, Anonymous
+#'
+#'Maintainer: Ananda Mahto <mrdwab@@gmail.com>
+#'@examples
+#'
+#'## aggregate2
+#'aggregate2(ToothGrowth, "len", ".", c("sum", "mean"))
+#'
+#'## CBIND
+#'df1 <- data.frame(A = 1:5, B = letters[1:5])
+#'df2 <- data.frame(C = 1:3, D = letters[1:3])
+#'df3 <- data.frame(E = 1:8, F = letters[1:8], G = LETTERS[1:8])
+#'#'CBIND(list(df1, df2, df3))
+#'
+#'## FacsToChars
+#'dat <- data.frame(title = c("title1", "title2", "title3"),
+#'              author = c("author1", "author2", "author3"),
+#'              customerID = c(1, 2, 1))
+#'str(dat)
+#'FacsToChars(dat, overwrite = TRUE)
+#'str(dat)
+#'
+#'## makemeNA
+#'# Some sample data
+#'temp <- data.frame(
+#'V1 = c(1:3),
+#'V2 = c(1, "*", 3),
+#'V3 = c("a", "*", "c"),
+#'V4 = c(".", "*", "3"))
+#'temp
+#'makemeNA(temp, c("*", "."))
+#'
+#'\dontshow{rm(dat, df1, df2, df3, temp)}
+#'
+NULL
+
+
+
+
+
+#'List of first names and surnames to generate random names
+#'
+#'This is the default dataset used by the \code{\link{RandomNames}} function.
+#'
+#'
+#'@name CensusNames1990
+#'@aliases CensusNames CensusNames1990
+#'@docType data
+#'@format A list of first names and surnames, split by gender and how common
+#'the first names are.
+#'@references \emph{Genealogy Data: Frequently Occurring Surnames from Census
+#'1990--Names Files}:
+#'\url{http://www.census.gov/genealogy/www/data/1990surnames/names_files.html}
+#'@keywords datasets
+NULL
+
+
+
+
+
+#'Example dataset with concatenated cells
+#'
+#'This is a sample dataset to demonstrate the different features of the
+#'\code{\link{concat.split}} function.
+#'
+#'
+#'@name concat.test
+#'@aliases concatenated concat.test
+#'@docType data
+#'@format A data.frame in which many columns contain concatenated cells
+#'@keywords datasets
+NULL
+
+
+
+
+
 #'mrdwabmisc
 #'
-#'Miscellaneous R functions, some utility, and others to clean and organize data.
+#'Miscellaneous R functions, some utility, and others to clean and organize
+#'data.
 #'
 #'\tabular{ll}{ Package: \tab mrdwabmisc\cr Type: \tab Package\cr Version: \tab
 #'1.0\cr Date: \tab 2013-01-22\cr License: \tab GPL-2\cr }
 #'
 #'@name mrdwabmisc-package
-#'@aliases mrdwabmisc-package mrdwabmisc
+#'@aliases mrdwabmisc mrdwabmisc-package
 #'@docType package
 #'@author Ananda Mahto
 #'
 #'Maintainer: Ananda Mahto <mrdwab@@gmail.com>
-#'@seealso \code{\link[AMsnippets:AMsnippets-package]{AMsnippets}} contains a related set of utility functions, but the packages do not depend on each other.
+#'@seealso \code{\link[AMsnippets:AMsnippets-package]{AMsnippets}} contains a
+#'related set of utility functions, but the packages do not depend on each
+#'other.
 #'@keywords package
 #'@examples
 #'
@@ -30,33 +125,38 @@
 #'
 #'## table2df
 #'table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph),
-#'          as.multitable = TRUE, direction = "wide")[[1]]
+#'         as.multitable = TRUE, direction = "wide")[[1]]
 #'head(table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph)))
+#'## aggregate2
+#'aggregate2(ToothGrowth, "len", ".", c("sum", "mean"))
+#'
+#'## CBIND
+#'df1 <- data.frame(A = 1:5, B = letters[1:5])
+#'df2 <- data.frame(C = 1:3, D = letters[1:3])
+#'df3 <- data.frame(E = 1:8, F = letters[1:8], G = LETTERS[1:8])
+#'#'CBIND(list(df1, df2, df3))
+#'
+#'## FacsToChars
+#'dat <- data.frame(title = c("title1", "title2", "title3"),
+#'              author = c("author1", "author2", "author3"),
+#'              customerID = c(1, 2, 1))
+#'str(dat)
+#'FacsToChars(dat, overwrite = TRUE)
+#'str(dat)
+#'
+#'## makemeNA
+#'# Some sample data
+#'temp <- data.frame(
+#'V1 = c(1:3),
+#'V2 = c(1, "*", 3),
+#'V3 = c("a", "*", "c"),
+#'V4 = c(".", "*", "3"))
+#'temp
+#'makemeNA(temp, c("*", "."))
+#'
+#'\dontshow{rm(dat, df1, df2, df3, temp)}
 #'
 NULL
 
-#'Example dataset with concatenated cells
-#'
-#'This is a sample dataset to demonstrate the different features of the \code{\link{concat.split}} function. 
-#'
-#' @docType data 
-#' @keywords datasets 
-#' @name concat.test 
-#' @aliases concat.test concatenated
-#' @usage data(concatenated) 
-#' @format A data.frame in which many columns contain concatenated cells
-NULL
-NULL
 
-#'List of first names and surnames to generate random names
-#'
-#'This is the default dataset used by the \code{\link{RandomNames}} function. 
-#'
-#' @docType data 
-#' @keywords datasets 
-#' @name CensusNames1990 
-#' @aliases CensusNames1990 CensusNames
-#' @usage data(CensusNames) 
-#' @format A list of first names and surnames, split by gender and how common the first names are. 
-#' @references \emph{Genealogy Data: Frequently Occurring Surnames from Census 1990--Names Files}: \url{http://www.census.gov/genealogy/www/data/1990surnames/names_files.html}
-NULL
+

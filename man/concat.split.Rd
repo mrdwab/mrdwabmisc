@@ -52,7 +52,7 @@
   \code{structure = "list"}, it is possible to supply a a
   regular expression containing the characters to split on.
   For example, to split on \code{","}, \code{";"}, or
-  \code{"|"}, you can set \code{sep = ",|;|\\|"} or
+  \code{"|"}, you can set \code{sep = ",|;|\|"} or
   \code{sep = "[,;|]"}, and \code{fixed = FALSE} to split
   on any of those characters.
 }
@@ -81,7 +81,7 @@ head(concat.split(concat.test, 2, mode = "value", drop.col = TRUE))
 
 # Try again. Notice the differing number of resulting columns
 head(concat.split(concat.test, 2, structure = "expanded",
-     mode = "value", drop.col = TRUE))
+    mode = "value", drop.col = TRUE))
 
 # Let's try splitting some strings... Same syntax
 head(concat.split(concat.test, 3, drop.col = TRUE))
@@ -93,7 +93,7 @@ head(concat.split(concat.test, 2, structure = "list", drop.col=FALSE))
 # that the new column is a list; note the difference between "Likes"
 # and "Likes_list".
 str(concat.split(concat.test, 2, structure = "list",
-   drop.col=FALSE)[1:10, c(2, 5)])
+  drop.col=FALSE)[1:10, c(2, 5)])
 
 # ADVANCED USAGE ###
 
@@ -101,25 +101,24 @@ str(concat.split(concat.test, 2, structure = "list",
 # Note that the split characters must be specified
 #   in the same order that lapply will encounter them
 head(do.call(cbind,
-             c(concat.test[1],
-               lapply(1:(ncol(concat.test)-1),
-                      function(x) {
-                          splitchars = c(",", ",", ";")
-                          concat.split(concat.test[-1][x], 1,
-                                       splitchars[x],
-                                       drop.col=TRUE)
-                                       }))))
+            c(concat.test[1],
+              lapply(1:(ncol(concat.test)-1),
+                     function(x) {
+                         splitchars = c(",", ",", ";")
+                         concat.split(concat.test[-1][x], 1,
+                                      splitchars[x],
+                                      drop.col=TRUE)
+                                      }))))
 \dontshow{rm(concat.test)}
 }
 \author{
   Ananda Mahto
 }
 \references{
-  \itemize{ \item{See
-  \url{http://stackoverflow.com/q/10100887/1270695}}
-  \item{The \code{"condensed"} setting was inspired by an
-  answer from David Winsemius to a question at Stack
-  Overflow. See:
-  \url{http://stackoverflow.com/a/13924245/1270695}} }
+  \itemize{ \item See
+  \url{http://stackoverflow.com/q/10100887/1270695} \item
+  The \code{"condensed"} setting was inspired by an answer
+  from David Winsemius to a question at Stack Overflow.
+  See: \url{http://stackoverflow.com/a/13924245/1270695} }
 }
 

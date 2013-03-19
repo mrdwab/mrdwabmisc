@@ -6,5 +6,23 @@ export(concat.split,
        sample.size,
        stratified,
        stringseed.sampling,
-       table2df)
+       table2df,
+       aggregate2,
+       CBIND,
+       dfcols.list,
+       LinearizeNestedList,
+       load.scripts.and.data,
+       makemeNA,
+       mv,
+       round2,
+       SampleToSum,
+       subsequence,
+       unlistDF,
+       FacsToChars,
+       RBIND,
+       read.so,
+       getSize,
+       unbalancedReshape)
 S3method(print, stringSeedSampling)
+S3method(print, subSequence)
+S3method(print, sampletosum)
