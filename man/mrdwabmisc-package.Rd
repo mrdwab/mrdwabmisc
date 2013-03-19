@@ -64,10 +64,5 @@ makemeNA(temp, c("*", "."))
 
   Maintainer: Ananda Mahto <mrdwab@gmail.com>
 }
-\seealso{
-  \code{\link[AMsnippets:AMsnippets-package]{AMsnippets}}
-  contains a related set of utility functions, but the
-  packages do not depend on each other.
-}
 \keyword{package}
 

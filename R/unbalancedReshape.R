@@ -38,6 +38,7 @@
 #'}
 #'
 unbalancedReshape <- function(data, id.vars, sep = ".", dropNA = TRUE) {
+  if (is.numeric(id.vars)) id.vars <- names(data)[id.vars]
   Varying <- setdiff(names(data), id.vars)
   Check <- table(sapply(strsplit(Varying, sep, fixed = TRUE), `[[`, 1))
   Mode <- ifelse(all(Check == max(Check)), "balanced", "unbalanced")
