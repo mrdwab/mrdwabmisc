@@ -19,7 +19,7 @@
 #'
 #'\dontrun{
 #'load.scripts.and.data(c("~/Dropbox/Public",
-#'                    "~/Dropbox/Public/R Functions"))
+#'                   "~/Dropbox/Public/R Functions"))
 #'}
 #'
 load.scripts.and.data <- function(path, pattern = list(scripts = "*.R$",

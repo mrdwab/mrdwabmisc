@@ -28,7 +28,7 @@ stringseed.sampling("Santa Barbara", 1920, 100)
 
 ## table2df
 table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph),
-        as.multitable = TRUE, direction = "wide")[[1]]
+       as.multitable = TRUE, direction = "wide")[[1]]
 head(table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph)))
 ## aggregate2
 aggregate2(ToothGrowth, "len", ".", c("sum", "mean"))
@@ -41,8 +41,8 @@ df3 <- data.frame(E = 1:8, F = letters[1:8], G = LETTERS[1:8])
 
 ## FacsToChars
 dat <- data.frame(title = c("title1", "title2", "title3"),
-             author = c("author1", "author2", "author3"),
-             customerID = c(1, 2, 1))
+            author = c("author1", "author2", "author3"),
+            customerID = c(1, 2, 1))
 str(dat)
 FacsToChars(dat, overwrite = TRUE)
 str(dat)

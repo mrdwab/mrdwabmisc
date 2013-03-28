@@ -70,15 +70,15 @@
 #'## ======== USING YOUR OWN DATA ======== ##
 #'
 #'myCustomNames <- list(
-#' surnames = data.frame(
-#'   Name = LETTERS[1:26],
-#'   Category = c(rep("rare", 10), rep("average", 10), rep("common", 6))),
-#' malenames = data.frame(
-#'   Name = letters[1:10],
-#'   Category = c(rep("rare", 4), rep("average", 4), rep("common", 2))),
-#' femalenames = data.frame(
-#'   Name = letters[11:26],
-#'   Category = c(rep("rare", 8), rep("average", 4), rep("common", 4))))
+#'surnames = data.frame(
+#'  Name = LETTERS[1:26],
+#'  Category = c(rep("rare", 10), rep("average", 10), rep("common", 6))),
+#'malenames = data.frame(
+#'  Name = letters[1:10],
+#'  Category = c(rep("rare", 4), rep("average", 4), rep("common", 2))),
+#'femalenames = data.frame(
+#'  Name = letters[11:26],
+#'  Category = c(rep("rare", 8), rep("average", 4), rep("common", 4))))
 #'str(myCustomNames)
 #'
 #'RandomNames(N = 15, dataset = myCustomNames)

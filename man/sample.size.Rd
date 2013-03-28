@@ -80,14 +80,14 @@ sample.size(population=c(300, 350, 400, 450, 500))
 # How does varying confidence levels or confidence intervals
 #   affect the sample size?
 sample.size(population=300,
-           c.lev=rep(c(95, 96, 97, 98, 99), times = 3),
-           c.int=rep(c(2.5, 5, 10), each=5))
+          c.lev=rep(c(95, 96, 97, 98, 99), times = 3),
+          c.int=rep(c(2.5, 5, 10), each=5))
 
 # What is are the confidence intervals for a sample of
 #   150, 160, and 170 from a population of 300?
 sample.size(population=300,
-           samp.size = c(150, 160, 170),
-           what = "confidence")
+          samp.size = c(150, 160, 170),
+          what = "confidence")
 }
 \author{
   Ananda Mahto

@@ -32,17 +32,17 @@
 #'# Make up some data:
 #'set.seed(1)
 #'handedness <- data.frame(
-#'  gender = sample(c("Female", "Male", "Unknown"), 200, replace = TRUE),
-#'  handedness = sample(c("Right", "Left", "Ambidextrous"),
-#'                      200, replace = TRUE, prob = c(.7, .2, .1)),
-#'  fav.col = sample(c("Red", "Orange", "Yellow", "Green", "Blue",
-#'                   "Indigo", "Violet", "Black", "White"),
-#'                   200, replace = TRUE),
-#'  fav.shape = sample(c("Triangle", "Circle", "Square", "Pentagon", "Hexagon",
-#'                     "Oval", "Octagon", "Rhombus", "Trapezoid"),
-#'                     200, replace = TRUE),
-#'  computer = sample(c("Win", "Mac", "Lin"), 200, replace = TRUE,
-#'                    prob = c(.5, .25, .25)))
+#' gender = sample(c("Female", "Male", "Unknown"), 200, replace = TRUE),
+#' handedness = sample(c("Right", "Left", "Ambidextrous"),
+#'                     200, replace = TRUE, prob = c(.7, .2, .1)),
+#' fav.col = sample(c("Red", "Orange", "Yellow", "Green", "Blue",
+#'                  "Indigo", "Violet", "Black", "White"),
+#'                  200, replace = TRUE),
+#' fav.shape = sample(c("Triangle", "Circle", "Square", "Pentagon", "Hexagon",
+#'                    "Oval", "Octagon", "Rhombus", "Trapezoid"),
+#'                    200, replace = TRUE),
+#' computer = sample(c("Win", "Mac", "Lin"), 200, replace = TRUE,
+#'                   prob = c(.5, .25, .25)))
 #'# Preview the data
 #'list(head(handedness), tail(handedness))
 #'
@@ -73,8 +73,8 @@
 #'
 #'# Applied to an ftable
 #'HT4 <- ftable(handedness,
-#'              col.vars="fav.col",
-#'              row.vars=c("gender", "computer"))
+#'             col.vars="fav.col",
+#'             row.vars=c("gender", "computer"))
 #'HT4
 #'table2df(HT4)
 #'
@@ -87,11 +87,11 @@
 #'\dontrun{
 #'table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph))
 #'table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph),
-#'         direction = "long")
+#'        direction = "long")
 #'table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph),
-#'         as.multitable = TRUE, direction = "long")
+#'        as.multitable = TRUE, direction = "long")
 #'table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph),
-#'         as.multitable = TRUE, direction = "wide")
+#'        as.multitable = TRUE, direction = "wide")
 #'}
 #'
 #'\dontshow{rm(HT1, HT2, HT3, HT4, handedness)}

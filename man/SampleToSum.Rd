@@ -39,16 +39,16 @@ set.seed(1)
 SampleToSum()
 SampleToSum(Tolerance = 0)
 replicate(5,
-     SampleToSum(Target = 1376,
-                 VecLen = 13,
-                 InRange = 10:200,
-                 Tolerance = 0),
-     simplify = FALSE)
+    SampleToSum(Target = 1376,
+                VecLen = 13,
+                InRange = 10:200,
+                Tolerance = 0),
+    simplify = FALSE)
 replicate(5,
-     SampleToSum(Target = 1376,
-                 VecLen = 13,
-                 InRange = 10:200),
-     simplify = FALSE)
+    SampleToSum(Target = 1376,
+                VecLen = 13,
+                InRange = 10:200),
+    simplify = FALSE)
 }
 \author{
   Ananda Mahto

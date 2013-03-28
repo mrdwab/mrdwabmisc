@@ -23,8 +23,8 @@
 \examples{
 ## Some example data
 dat <- data.frame(title = c("title1", "title2", "title3"),
-             author = c("author1", "author2", "author3"),
-             customerID = c(1, 2, 1))
+            author = c("author1", "author2", "author3"),
+            customerID = c(1, 2, 1))
 ## Make a copy of dat for later
 dat_copy <- dat
 str(dat) # current structure

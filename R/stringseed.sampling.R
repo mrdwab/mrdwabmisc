@@ -32,14 +32,14 @@
 #'#   village names to generate a unique seed for each village before
 #'#   drawing the sample.
 #'myListOfPlaces <- data.frame(
-#'  villageName = c("Melakkal", "Sholavandan", "T. Malaipatti"),
-#'  population = c(120, 130, 140),
-#'  requiredSample = c(30, 25, 12))
+#' villageName = c("Melakkal", "Sholavandan", "T. Malaipatti"),
+#' population = c(120, 130, 140),
+#' requiredSample = c(30, 25, 12))
 #'myListOfPlaces
 #'
 #'stringseed.sampling(seedbase = myListOfPlaces$villageName,
-#'                    N = myListOfPlaces$population,
-#'                    n = myListOfPlaces$requiredSample)
+#'                   N = myListOfPlaces$population,
+#'                   n = myListOfPlaces$requiredSample)
 #'
 #'# Manual verification of the samples generated for Melakkal village
 #'#   (for which the automatically generated seed was 1331891848)

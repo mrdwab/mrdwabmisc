@@ -32,7 +32,7 @@
 \examples{
 \dontrun{
 load.scripts.and.data(c("~/Dropbox/Public",
-                   "~/Dropbox/Public/R Functions"))
+                  "~/Dropbox/Public/R Functions"))
 }
 }
 \author{

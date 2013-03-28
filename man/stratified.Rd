@@ -93,13 +93,13 @@
 # Generate a couple of sample data.frames to play with
 set.seed(1)
 dat1 <- data.frame(ID = 1:100,
-                  A = sample(c("AA", "BB", "CC", "DD", "EE"), 100, replace = TRUE),
-                  B = rnorm(100), C = abs(round(rnorm(100), digits=1)),
-                  D = sample(c("CA", "NY", "TX"), 100, replace = TRUE),
-                  E = sample(c("M", "F"), 100, replace = TRUE))
+                 A = sample(c("AA", "BB", "CC", "DD", "EE"), 100, replace = TRUE),
+                 B = rnorm(100), C = abs(round(rnorm(100), digits=1)),
+                 D = sample(c("CA", "NY", "TX"), 100, replace = TRUE),
+                 E = sample(c("M", "F"), 100, replace = TRUE))
 dat2 <- data.frame(ID = 1:20,
-                  A = c(rep("AA", 5), rep("BB", 10),
-                        rep("CC", 3), rep("DD", 2)))
+                 A = c(rep("AA", 5), rep("BB", 10),
+                       rep("CC", 3), rep("DD", 2)))
 # What do the data look like in general?
 summary(dat1)
 summary(dat2)
@@ -128,7 +128,7 @@ stratified(dat1, c("E", "D"), .15, select = list(E = "M"), seed = 1)
 
 ## As above, but where -E- == "M" and -D- == "CA" or "TX"
 stratified(dat1, c("E", "D"), .15,
-         select = list(E = "M", D = c("CA", "TX")), seed = 1)
+        select = list(E = "M", D = c("CA", "TX")), seed = 1)
 
 # Use a three-column strata: -E-, -D-, and -A-
 s.out <- stratified(dat1, c("E", "D", "A"), size = 2, seed = 1)
