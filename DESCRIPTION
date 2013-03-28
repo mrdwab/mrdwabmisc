@@ -41,3 +41,4 @@ Collate:
     'subsequence.R'
     'unlistDF.R'
     'unbalancedReshape.R'
+    'mySOreputation.R'
