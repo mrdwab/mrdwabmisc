@@ -42,7 +42,6 @@
 #'@examples
 #'
 #'## Load some data
-#'data(concatenated)
 #'head(concat.test)
 #'
 #'# Split up the second column, selecting by column number
@@ -54,8 +53,10 @@
 #'# The "Hates" column uses a different separator
 #'head(concat.split(concat.test, "Hates", sep = ";", drop.col = TRUE))
 #'
+#'\dontrun{
 #'# You'll get a warning here, when trying to retain the original values
 #'head(concat.split(concat.test, 2, mode = "value", drop.col = TRUE))
+#'}
 #'
 #'# Try again. Notice the differing number of resulting columns
 #'head(concat.split(concat.test, 2, structure = "expanded",
@@ -87,7 +88,6 @@
 #'                                      splitchars[x],
 #'                                      drop.col=TRUE)
 #'                                      }))))
-#'\dontshow{rm(concat.test)}
 #'
 concat.split <- function(data, split.col, sep = ",", structure = "compact",
                         mode = NULL, drop.col = FALSE, fixed = FALSE) {

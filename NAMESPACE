@@ -22,7 +22,8 @@ export(concat.split,
        RBIND,
        read.so,
        getSize,
-       unbalancedReshape)
+       unbalancedReshape,
+       mySOreputation)
 S3method(print, stringSeedSampling)
 S3method(print, subSequence)
 S3method(print, sampletosum)

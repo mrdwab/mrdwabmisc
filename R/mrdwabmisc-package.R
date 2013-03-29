@@ -55,10 +55,8 @@ NULL
 #'@examples
 #'
 #'## concat.split
-#'data(concatenated)
 #'head(concat.test)
 #'head(concat.split(concat.test, "Likes", drop.col = TRUE))
-#'\dontshow{rm(concat.test)}
 #'
 #'## sample.size
 #'sample.size(population = 300)
