@@ -20,11 +20,11 @@
 ## Some example data
 ## List with named items
 qwerty <- list(A = data.frame(A = 1:2, B = 3:4),
-         B = data.frame(C = 5:6, D = 7:8))
+        B = data.frame(C = 5:6, D = 7:8))
 
 ## List with unnamed items
 ytrewq <- list(data.frame(A = 1:2, B = 3:4),
-         data.frame(C = 5:6, D = 7:8))
+        data.frame(C = 5:6, D = 7:8))
 
 ls(pattern = "qwer|ytre")
 

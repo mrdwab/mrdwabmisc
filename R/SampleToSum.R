@@ -27,16 +27,16 @@
 #'SampleToSum()
 #'SampleToSum(Tolerance = 0)
 #'replicate(5,
-#'     SampleToSum(Target = 1376,
-#'                 VecLen = 13,
-#'                 InRange = 10:200,
-#'                 Tolerance = 0),
-#'     simplify = FALSE)
+#'    SampleToSum(Target = 1376,
+#'                VecLen = 13,
+#'                InRange = 10:200,
+#'                Tolerance = 0),
+#'    simplify = FALSE)
 #'replicate(5,
-#'     SampleToSum(Target = 1376,
-#'                 VecLen = 13,
-#'                 InRange = 10:200),
-#'     simplify = FALSE)
+#'    SampleToSum(Target = 1376,
+#'                VecLen = 13,
+#'                InRange = 10:200),
+#'    simplify = FALSE)
 #'
 SampleToSum <- function(Target = 100, VecLen = 10, InRange = 1:100, 
                         Tolerance = 2, writeProgress = NULL) {

@@ -55,8 +55,10 @@ NULL
 #'@examples
 #'
 #'## concat.split
+#'data(concatenated)
 #'head(concat.test)
 #'head(concat.split(concat.test, "Likes", drop.col = TRUE))
+#'\dontshow{rm(concat.test)}
 #'
 #'## sample.size
 #'sample.size(population = 300)
@@ -67,7 +69,7 @@ NULL
 #'
 #'## table2df
 #'table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph),
-#'        as.multitable = TRUE, direction = "wide")[[1]]
+#'       as.multitable = TRUE, direction = "wide")[[1]]
 #'head(table2df(xtabs(cbind(ncases, ncontrols) ~ ., data = esoph)))
 #'## aggregate2
 #'aggregate2(ToothGrowth, "len", ".", c("sum", "mean"))
@@ -80,8 +82,8 @@ NULL
 #'
 #'## FacsToChars
 #'dat <- data.frame(title = c("title1", "title2", "title3"),
-#'             author = c("author1", "author2", "author3"),
-#'             customerID = c(1, 2, 1))
+#'            author = c("author1", "author2", "author3"),
+#'            customerID = c(1, 2, 1))
 #'str(dat)
 #'FacsToChars(dat, overwrite = TRUE)
 #'str(dat)

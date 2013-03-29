@@ -66,12 +66,12 @@
 \examples{
 # Create some sample data
 NList <- list(a = "a", # Atom
-        b = 1:5, # Vector
-        c = data.frame(x = runif(5), y = runif(5)), # Add a data.frame
-        d = matrix(runif(4), nrow = 2), # Throw in a matrix for good measure
-        e = list(l = list("a", "b"), # Introduce nesting
-                 m = list(1:5, 5:10),
-                 n = list(list(1), list(2)))) # More nesting
+       b = 1:5, # Vector
+       c = data.frame(x = runif(5), y = runif(5)), # Add a data.frame
+       d = matrix(runif(4), nrow = 2), # Throw in a matrix for good measure
+       e = list(l = list("a", "b"), # Introduce nesting
+                m = list(1:5, 5:10),
+                n = list(list(1), list(2)))) # More nesting
 
 LinearizeNestedList(NList)
 LinearizeNestedList(NList, LinearizeDataFrames = TRUE)

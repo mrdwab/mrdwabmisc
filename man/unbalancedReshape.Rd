@@ -33,20 +33,20 @@
 \examples{
 data(concatenated)
 temp <- head(do.call(cbind,
-           c(concat.test[1],
-             lapply(1:(ncol(concat.test)-1),
-             function(x) {
-             splitchars = c(",", ",", ";")
-             concat.split(concat.test[-1][x], 1,
-                          splitchars[x],
-                          drop.col=TRUE)
-                          }))))
+          c(concat.test[1],
+            lapply(1:(ncol(concat.test)-1),
+            function(x) {
+            splitchars = c(",", ",", ";")
+            concat.split(concat.test[-1][x], 1,
+                         splitchars[x],
+                         drop.col=TRUE)
+                         }))))
 temp
 
 \dontrun{
 ## Because the data are unbalanced, we can't just use this
 reshape(temp, direction = "long", idvar = "Name",
-      varying = 2:ncol(temp), sep = "_")
+     varying = 2:ncol(temp), sep = "_")
 }
 
 unbalancedReshape(temp, id.vars = "Name", sep = "_")

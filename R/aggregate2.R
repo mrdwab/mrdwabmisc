@@ -29,22 +29,22 @@
 #'
 #'# One-to-one, two functions
 #'(temp1a <- aggregate(weight ~ feed, data = chickwts,
-#'                function(x) cbind(mean(x), sum(x))))
+#'               function(x) cbind(mean(x), sum(x))))
 #'str(temp1a)
 #'(temp1b <- aggregate2(chickwts, "weight", "feed", c("mean", "sum")))
 #'str(temp1b)
 #'
 #'# Many-to-many, two functions
 #'(temp2a <- aggregate(cbind(ncases, ncontrols) ~ alcgp + tobgp, data = esoph,
-#'                function(x) cbind(sum(x), mean(x))))
+#'               function(x) cbind(sum(x), mean(x))))
 #'str(temp2a)
 #'(temp2b <- aggregate2(esoph, c("ncases", "ncontrols"),
-#'                 c("alcgp", "tobgp"), c("sum", "mean")))
+#'                c("alcgp", "tobgp"), c("sum", "mean")))
 #'str(temp2b)
 #'
 #'# Dot notation
 #'(temp3a <- aggregate(len ~ ., data = ToothGrowth,
-#'                function(x) cbind(sum(x), mean(x))))
+#'               function(x) cbind(sum(x), mean(x))))
 #'str(temp3a)
 #'(temp3b <- aggregate2(ToothGrowth, "len", ".", c("sum", "mean")))
 #'str(temp3b)

@@ -2,7 +2,8 @@
 \alias{read.so}
 \title{Read displayed text at Stack Overflow}
 \usage{
-  read.so(sep = "", header = TRUE, out = "mydf")
+  read.so(sep = "", header = TRUE,
+    stringsAsFactors = FALSE, out = "mydf")
 }
 \arguments{
   \item{sep}{Most of the time, the code shared is space
