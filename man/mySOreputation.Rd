@@ -27,7 +27,7 @@
 ##    made up.
 rep_file <- system.file("soreputation.txt", package = "mrdwabmisc")
 readLines(rep_file, 15)
-mydf <- mySOreputation(rep_file)
+mydf <- mySOreputation(rep_file = rep_file)
 head(mydf, 15)
 str(mydf)
 plot(mydf$date, cumsum(mydf$rep_change))
@@ -44,7 +44,8 @@ rm(mydf, mydfx, rep_file)
 }
 }
 \author{
-  Ananda Mahto
+  Paul Hiemstra provided the base parser. Built upon by
+  Ananda Mahto.
 }
 \references{
   Values for the "actions" variable determined after

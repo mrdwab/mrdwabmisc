@@ -10,7 +10,7 @@
 #'@param rep_file The path to a text version of your reputation page. Windows 
 #'and Linux users can copy the text on the page with select all + copy, and 
 #'simply use "clipboard" instead of saving the contents to a local file.
-#'@author Ananda Mahto
+#'@author Paul Hiemstra provided the base parser. Built upon by Ananda Mahto.
 #'@references Values for the "actions" variable determined after visiting 
 #'\url{http://meta.stackoverflow.com/questions/43004/how-do-i-audit-my-reputation/43005#43005}. 
 #'There is one value not mentioned at that page, coded as \code{action_id == 99} 
@@ -24,7 +24,7 @@
 #'##    made up. 
 #'rep_file <- system.file("soreputation.txt", package = "mrdwabmisc")
 #'readLines(rep_file, 15)
-#'mydf <- mySOreputation(rep_file)
+#'mydf <- mySOreputation(rep_file = rep_file)
 #'head(mydf, 15)
 #'str(mydf)
 #'plot(mydf$date, cumsum(mydf$rep_change))
