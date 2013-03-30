@@ -50,14 +50,14 @@
 #'# Make up some data
 #'set.seed(1)
 #'dat <- data.frame(A = sample(c(0, 1), 20, replace=TRUE),
-#'               B = sample(c(0, 1, NA), 20,
-#'                          prob=c(.3, .6, .1), replace=TRUE),
-#'               C = sample(c(0, 1, NA), 20,
-#'                          prob=c(.7, .2, .1), replace=TRUE),
-#'               D = sample(c(0, 1, NA), 20,
-#'                          prob=c(.3, .6, .1), replace=TRUE),
-#'               E = sample(c(0, 1, NA), 20,
-#'                          prob=c(.4, .4, .2), replace=TRUE))
+#'              B = sample(c(0, 1, NA), 20,
+#'                         prob=c(.3, .6, .1), replace=TRUE),
+#'              C = sample(c(0, 1, NA), 20,
+#'                         prob=c(.7, .2, .1), replace=TRUE),
+#'              D = sample(c(0, 1, NA), 20,
+#'                         prob=c(.3, .6, .1), replace=TRUE),
+#'              E = sample(c(0, 1, NA), 20,
+#'                         prob=c(.4, .4, .2), replace=TRUE))
 #'
 #'# View your data
 #'dat
@@ -76,7 +76,7 @@
 #'# As above, but without converting "NA" to "0".
 #'# Note the difference in the number of valid cases.
 #'multi.freq.table(dat[c(1, 2, 4)], NAto0=FALSE,
-#'               sep="-", dropzero=FALSE, clean=FALSE)
+#'              sep="-", dropzero=FALSE, clean=FALSE)
 #'
 #'# View a basic table.
 #'multi.freq.table(dat, basic=TRUE)
@@ -86,14 +86,14 @@
 #'
 #'# Make up some data
 #'dat2 <- structure(list(Reason.1 = c("one", "one", "two", "one", "two",
-#'                                 "three", "one", "one", NA, "two"),
-#'                    Reason.2 = c("two", "three", "three", NA, NA,
-#'                                 "two", "three", "two", NA, NA),
-#'                    Reason.3 = c("three", NA, NA, NA, NA,
-#'                                 NA, NA, "three", NA, NA)),
-#'                    .Names = c("Reason.1", "Reason.2", "Reason.3"),
-#'                    class = "data.frame",
-#'                    row.names = c(NA, -10L))
+#'                                "three", "one", "one", NA, "two"),
+#'                   Reason.2 = c("two", "three", "three", NA, NA,
+#'                                "two", "three", "two", NA, NA),
+#'                   Reason.3 = c("three", NA, NA, NA, NA,
+#'                                NA, NA, "three", NA, NA)),
+#'                   .Names = c("Reason.1", "Reason.2", "Reason.3"),
+#'                   class = "data.frame",
+#'                   row.names = c(NA, -10L))
 #'
 #'# View your data
 #'dat2
@@ -104,12 +104,12 @@
 #'
 #'# Factor create the factors.
 #'multi.freq.table(dat2, boolean=FALSE,
-#'               factors = c("one", "two", "three"))
+#'              factors = c("one", "two", "three"))
 #'
 #'# And, a basic table.
 #'multi.freq.table(dat2, boolean=FALSE,
-#'               factors = c("one", "two", "three"),
-#'               basic=TRUE)
+#'              factors = c("one", "two", "three"),
+#'              basic=TRUE)
 #'\dontshow{rm(dat, dat2)}
 #'
 multi.freq.table <- function(data, sep = "", boolean = TRUE, factors = NULL,

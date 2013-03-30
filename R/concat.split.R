@@ -60,7 +60,7 @@
 #'
 #'# Try again. Notice the differing number of resulting columns
 #'head(concat.split(concat.test, 2, structure = "expanded",
-#'   mode = "value", drop.col = TRUE))
+#'  mode = "value", drop.col = TRUE))
 #'
 #'# Let's try splitting some strings... Same syntax
 #'head(concat.split(concat.test, 3, drop.col = TRUE))
@@ -72,7 +72,7 @@
 #'# that the new column is a list; note the difference between "Likes"
 #'# and "Likes_list".
 #'str(concat.split(concat.test, 2, structure = "list",
-#' drop.col=FALSE)[1:10, c(2, 5)])
+#'drop.col=FALSE)[1:10, c(2, 5)])
 #'
 #'# ADVANCED USAGE ###
 #'
@@ -80,14 +80,14 @@
 #'# Note that the split characters must be specified
 #'#   in the same order that lapply will encounter them
 #'head(do.call(cbind,
-#'           c(concat.test[1],
-#'             lapply(1:(ncol(concat.test)-1),
-#'                    function(x) {
-#'                        splitchars = c(",", ",", ";")
-#'                        concat.split(concat.test[-1][x], 1,
-#'                                     splitchars[x],
-#'                                     drop.col=TRUE)
-#'                                     }))))
+#'          c(concat.test[1],
+#'            lapply(1:(ncol(concat.test)-1),
+#'                   function(x) {
+#'                       splitchars = c(",", ",", ";")
+#'                       concat.split(concat.test[-1][x], 1,
+#'                                    splitchars[x],
+#'                                    drop.col=TRUE)
+#'                                    }))))
 #'
 concat.split <- function(data, split.col, sep = ",", structure = "compact",
                         mode = NULL, drop.col = FALSE, fixed = FALSE) {

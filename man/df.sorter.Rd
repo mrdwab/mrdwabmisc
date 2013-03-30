@@ -49,12 +49,12 @@
 # Make up some data
 set.seed(1)
 dat = data.frame(id = rep(1:5, each=3), times = rep(1:3, 5),
-              measure1 = rnorm(15), score1 = sample(300, 15),
-              code1 = replicate(15, paste(sample(LETTERS[1:5], 3),
-                                          sep="", collapse="")),
-              measure2 = rnorm(15), score2 = sample(150:300, 15),
-              code2 = replicate(15, paste(sample(LETTERS[1:5], 3),
-                                          sep="", collapse="")))
+             measure1 = rnorm(15), score1 = sample(300, 15),
+             code1 = replicate(15, paste(sample(LETTERS[1:5], 3),
+                                         sep="", collapse="")),
+             measure2 = rnorm(15), score2 = sample(150:300, 15),
+             code2 = replicate(15, paste(sample(LETTERS[1:5], 3),
+                                         sep="", collapse="")))
 # Preview your data
 dat
 
@@ -65,13 +65,13 @@ head(df.sorter(dat, var.order = c("id", "ti", "cod", "mea", "sco")))
 
 # As above, but sorted by 'times' and then 'id'
 head(df.sorter(dat,
-            var.order = c("id", "tim", "cod", "mea", "sco"),
-            col.sort = c(2, 1)))
+           var.order = c("id", "tim", "cod", "mea", "sco"),
+           col.sort = c(2, 1)))
 
 # Drop 'measure1' and 'measure2', sort by 'times', and 'score1'
 head(df.sorter(dat,
-            var.order = c("id", "tim", "sco", "cod"),
-            col.sort = c(2, 3)))
+           var.order = c("id", "tim", "sco", "cod"),
+           col.sort = c(2, 3)))
 
 # Just sort by columns, first by 'times' then by 'id'
 head(df.sorter(dat, col.sort = c("times", "id")))

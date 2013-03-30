@@ -25,8 +25,8 @@
 #'# Make up some data
 #'set.seed(1)
 #'dat = data.frame(V1 = 1:50, V2 = rnorm(50),
-#'              V3 = round(abs(rnorm(50)), digits=2),
-#'              V4 = sample(1:30, 50, replace=TRUE))
+#'             V3 = round(abs(rnorm(50)), digits=2),
+#'             V4 = sample(1:30, 50, replace=TRUE))
 #'# Get a sumary of the data
 #'summary(dat)
 #'
