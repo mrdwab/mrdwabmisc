@@ -23,7 +23,12 @@ export(concat.split,
        read.so,
        getSize,
        unbalancedReshape,
-       mySOreputation)
+       mySOreputation,
+       QAList,
+       SOCodeBlocks,
+       readClip)
 S3method(print, stringSeedSampling)
 S3method(print, subSequence)
 S3method(print, sampletosum)
+S3method(print, SOCodeBlocks)
+S3method(print, QAList)

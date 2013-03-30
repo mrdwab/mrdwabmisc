@@ -5,13 +5,12 @@ Version: 1.0
 Date: 2013-01-22
 Author: Ananda Mahto
 Maintainer: Ananda Mahto <mrdwab@gmail.com>
-Description: Miscellaneous R functions, some utility, and others to clean and
-    organize data.
+Description: Miscellaneous R functions, some utility, some to play with
+    Stack Overflow and others to clean and organize data.
 LazyData: TRUE
 Depends:
     R (>= 2.10),
-    digest,
-    reshape2
+    digest
 License: GPL-2
 LazyLoad: yes
 Collate:
@@ -44,3 +43,6 @@ Collate:
     'unbalancedReshape.R'
     'mySOreputation.R'
     'readClip.R'
+    'SOPageLoaderHelper.R'
+    'SOPrintMethods.R'
+    'StackOverflow.R'
