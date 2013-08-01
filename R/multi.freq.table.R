@@ -1,117 +1,119 @@
-#'Tabulates columns from a \code{data.frame} containing multiple-response data
-#'
-#'The \code{\link{multi.freq.table}} function takes a \code{\link{data.frame}}
-#'containing Boolean responses to multiple response questions and tabulates the
-#'number of responses by the possible combinations of answers.
-#'
-#'In addition to tabulating the \emph{frequency} (\code{Freq}), there are two
-#'other columns in the output: \emph{Percent of Responses} (\code{Pct.of.Resp})
-#'and \emph{Percent of Cases} (\code{Pct.of.Cases}).
-#'
-#'Percent of Responses is the frequency divided by the total number of answers
-#'provided; this column should sum to 100%. In some cases, for instance when a
-#'combination table is generated and there are cases where a respondent did not
-#'select any option, the Percent of Responses value would be more than 100%.
-#'Percent of Cases is the frequency divided by the total number of valid cases;
-#'this column would most likely sum to more than 100% when a basic table is
-#'produced since each respondent (case) can select multiple answers, but should
-#'sum to 100% with other tables.
-#'
-#'@param data The multiple responses that need to be tabulated.
-#'@param sep The desired separator for collapsing the combinations of options;
-#'defaults to \code{""} (collapsing with no space between each option name).
-#'@param boolean Are you tabulating boolean data (see \code{dat} Examples)?
-#'Defaults to \code{TRUE}.
-#'@param factors If you are trying to tabulate non-boolean data, and the data
-#'are not factors, you can specify the factors here (see \code{dat2} Examples).
-#'Defaults to \code{NULL} and is not used when \code{boolean = TRUE}.
-#'@param NAto0 Should \code{NA} values be converted to \code{0}? Defaults to
-#'\code{TRUE}, in which case, the number of valid cases should be the same as
-#'the number of cases overall. If set to \code{FALSE}, any rows with \code{NA}
-#'values will be dropped as invalid cases. Only applies when \code{boolean =
-#'TRUE}.
-#'@param basic Should a basic table of each item, rather than combinations of
-#'items, be created? Defaults to \code{FALSE}.
-#'@param dropzero Should combinations with a frequency of zero be dropped from
-#'the final table? Defaults to \code{TRUE}. Does not apply when \code{boolean =
-#'TRUE}.
-#'@param clean Should the original tabulated data be retained or dropped from
-#'the final table? Defaults to \code{TRUE} (drop). Does not apply when
-#'\code{boolean = TRUE}.
-#'@author Ananda Mahto
-#'@references \code{apply} shortcut for creating the \code{Combn} column in the
-#'output by Justin. See: \url{http://stackoverflow.com/q/11348391/1270695} and
-#'\url{http://stackoverflow.com/q/11622660/1270695}
-#'@examples
-#'
-#'## ========================================= ##
-#'## ============= BOOLEAN DATA ============== ##
-#'
-#'# Make up some data
-#'set.seed(1)
-#'dat <- data.frame(A = sample(c(0, 1), 20, replace=TRUE),
-#'              B = sample(c(0, 1, NA), 20,
-#'                         prob=c(.3, .6, .1), replace=TRUE),
-#'              C = sample(c(0, 1, NA), 20,
-#'                         prob=c(.7, .2, .1), replace=TRUE),
-#'              D = sample(c(0, 1, NA), 20,
-#'                         prob=c(.3, .6, .1), replace=TRUE),
-#'              E = sample(c(0, 1, NA), 20,
-#'                         prob=c(.4, .4, .2), replace=TRUE))
-#'
-#'# View your data
-#'dat
-#'
-#'# How many cases have "NA" values?
-#'table(is.na(rowSums(dat)))
-#'
-#'# Apply the function with all defaults accepted
-#'multi.freq.table(dat)
-#'
-#'# Tabulate only on variables "A", "B", and "D", with a different
-#'# separator, keep any zero frequency values, and keeping the
-#'# original tabulations. There are no solitary "D" responses.
-#'multi.freq.table(dat[c(1, 2, 4)], sep="-", dropzero=FALSE, clean=FALSE)
-#'
-#'# As above, but without converting "NA" to "0".
-#'# Note the difference in the number of valid cases.
-#'multi.freq.table(dat[c(1, 2, 4)], NAto0=FALSE,
-#'              sep="-", dropzero=FALSE, clean=FALSE)
-#'
-#'# View a basic table.
-#'multi.freq.table(dat, basic=TRUE)
-#'
-#'## ========================================= ##
-#'## =========== NON-BOOLEAN DATA ============ ##
-#'
-#'# Make up some data
-#'dat2 <- structure(list(Reason.1 = c("one", "one", "two", "one", "two",
-#'                                "three", "one", "one", NA, "two"),
-#'                   Reason.2 = c("two", "three", "three", NA, NA,
-#'                                "two", "three", "two", NA, NA),
-#'                   Reason.3 = c("three", NA, NA, NA, NA,
-#'                                NA, NA, "three", NA, NA)),
-#'                   .Names = c("Reason.1", "Reason.2", "Reason.3"),
-#'                   class = "data.frame",
-#'                   row.names = c(NA, -10L))
-#'
-#'# View your data
-#'dat2
-#'
-#'\dontrun{# The following will not work.
-#'# The data are not factored.
-#'multi.freq.table(dat2, boolean=FALSE)}
-#'
-#'# Factor create the factors.
-#'multi.freq.table(dat2, boolean=FALSE,
-#'              factors = c("one", "two", "three"))
-#'
-#'# And, a basic table.
-#'multi.freq.table(dat2, boolean=FALSE,
-#'              factors = c("one", "two", "three"),
-#'              basic=TRUE)
-#'\dontshow{rm(dat, dat2)}
-#'
+#' Tabulates columns from a \code{data.frame} containing multiple-response data
+#' 
+#' The \code{\link{multi.freq.table}} function takes a \code{\link{data.frame}}
+#' containing Boolean responses to multiple response questions and tabulates
+#' the number of responses by the possible combinations of answers.
+#' 
+#' In addition to tabulating the \emph{frequency} (\code{Freq}), there are two
+#' other columns in the output: \emph{Percent of Responses}
+#' (\code{Pct.of.Resp}) and \emph{Percent of Cases} (\code{Pct.of.Cases}).
+#' 
+#' Percent of Responses is the frequency divided by the total number of answers
+#' provided; this column should sum to 100%. In some cases, for instance when a
+#' combination table is generated and there are cases where a respondent did
+#' not select any option, the Percent of Responses value would be more than
+#' 100%. Percent of Cases is the frequency divided by the total number of valid
+#' cases; this column would most likely sum to more than 100% when a basic
+#' table is produced since each respondent (case) can select multiple answers,
+#' but should sum to 100% with other tables.
+#' 
+#' @param data The multiple responses that need to be tabulated.
+#' @param sep The desired separator for collapsing the combinations of options;
+#' defaults to \code{""} (collapsing with no space between each option name).
+#' @param boolean Are you tabulating boolean data (see \code{dat} Examples)?
+#' Defaults to \code{TRUE}.
+#' @param factors If you are trying to tabulate non-boolean data, and the data
+#' are not factors, you can specify the factors here (see \code{dat2}
+#' Examples). Defaults to \code{NULL} and is not used when \code{boolean =
+#' TRUE}.
+#' @param NAto0 Should \code{NA} values be converted to \code{0}? Defaults to
+#' \code{TRUE}, in which case, the number of valid cases should be the same as
+#' the number of cases overall. If set to \code{FALSE}, any rows with \code{NA}
+#' values will be dropped as invalid cases. Only applies when \code{boolean =
+#' TRUE}.
+#' @param basic Should a basic table of each item, rather than combinations of
+#' items, be created? Defaults to \code{FALSE}.
+#' @param dropzero Should combinations with a frequency of zero be dropped from
+#' the final table? Defaults to \code{TRUE}. Does not apply when \code{boolean
+#' = TRUE}.
+#' @param clean Should the original tabulated data be retained or dropped from
+#' the final table? Defaults to \code{TRUE} (drop). Does not apply when
+#' \code{boolean = TRUE}.
+#' @author Ananda Mahto
+#' @references \code{apply} shortcut for creating the \code{Combn} column in
+#' the output by Justin. See: \url{http://stackoverflow.com/q/11348391/1270695}
+#' and \url{http://stackoverflow.com/q/11622660/1270695}
+#' @examples
+#' 
+#' ## ========================================= ##
+#' ## ============= BOOLEAN DATA ============== ##
+#' 
+#' # Make up some data
+#' set.seed(1)
+#' dat <- data.frame(A = sample(c(0, 1), 20, replace=TRUE),
+#'             B = sample(c(0, 1, NA), 20,
+#'                        prob=c(.3, .6, .1), replace=TRUE),
+#'             C = sample(c(0, 1, NA), 20,
+#'                        prob=c(.7, .2, .1), replace=TRUE),
+#'             D = sample(c(0, 1, NA), 20,
+#'                        prob=c(.3, .6, .1), replace=TRUE),
+#'             E = sample(c(0, 1, NA), 20,
+#'                        prob=c(.4, .4, .2), replace=TRUE))
+#' 
+#' # View your data
+#' dat
+#' 
+#' # How many cases have "NA" values?
+#' table(is.na(rowSums(dat)))
+#' 
+#' # Apply the function with all defaults accepted
+#' multi.freq.table(dat)
+#' 
+#' # Tabulate only on variables "A", "B", and "D", with a different
+#' # separator, keep any zero frequency values, and keeping the
+#' # original tabulations. There are no solitary "D" responses.
+#' multi.freq.table(dat[c(1, 2, 4)], sep="-", dropzero=FALSE, clean=FALSE)
+#' 
+#' # As above, but without converting "NA" to "0".
+#' # Note the difference in the number of valid cases.
+#' multi.freq.table(dat[c(1, 2, 4)], NAto0=FALSE,
+#'             sep="-", dropzero=FALSE, clean=FALSE)
+#' 
+#' # View a basic table.
+#' multi.freq.table(dat, basic=TRUE)
+#' 
+#' ## ========================================= ##
+#' ## =========== NON-BOOLEAN DATA ============ ##
+#' 
+#' # Make up some data
+#' dat2 <- structure(list(Reason.1 = c("one", "one", "two", "one", "two",
+#'                               "three", "one", "one", NA, "two"),
+#'                  Reason.2 = c("two", "three", "three", NA, NA,
+#'                               "two", "three", "two", NA, NA),
+#'                  Reason.3 = c("three", NA, NA, NA, NA,
+#'                               NA, NA, "three", NA, NA)),
+#'                  .Names = c("Reason.1", "Reason.2", "Reason.3"),
+#'                  class = "data.frame",
+#'                  row.names = c(NA, -10L))
+#' 
+#' # View your data
+#' dat2
+#' 
+#' \dontrun{# The following will not work.
+#' # The data are not factored.
+#' multi.freq.table(dat2, boolean=FALSE)}
+#' 
+#' # Factor create the factors.
+#' multi.freq.table(dat2, boolean=FALSE,
+#'             factors = c("one", "two", "three"))
+#' 
+#' # And, a basic table.
+#' multi.freq.table(dat2, boolean=FALSE,
+#'             factors = c("one", "two", "three"),
+#'             basic=TRUE)
+#' \dontshow{rm(dat, dat2)}
+#' 
+#' @export multi.freq.table
 multi.freq.table <- function(data, sep = "", boolean = TRUE, factors = NULL,
                              NAto0 = TRUE, basic = FALSE, dropzero=TRUE, 
                              clean=TRUE) {

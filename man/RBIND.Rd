@@ -23,11 +23,11 @@
 \examples{
 ## Make up some data
 x <- data.frame(a = 1:2, b = 2:3, c = 3:4, d = 4:5,
-         row.names = c("row_1", "another_row1"))
+        row.names = c("row_1", "another_row1"))
 y <- data.frame(a = c(10, 20), b = c(20, 30), c = c(30, 40),
-         row.names=c("row_2", "another_row2"))
+        row.names=c("row_2", "another_row2"))
 z <- data.frame(a = c(11, 21), b = c(22, 32), d = c(33, 43),
-         row.names = c("row_3", "another_row3"))
+        row.names = c("row_3", "another_row3"))
 xx <- data.frame(a = 1:2, b = 3:4)
 yy <- data.frame(a = 5:6, b = 7:8)
 zz <- data.frame(a = 9:10, b = 11:12)

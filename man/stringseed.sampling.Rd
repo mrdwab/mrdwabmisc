@@ -51,8 +51,8 @@ requiredSample = c(30, 25, 12))
 myListOfPlaces
 
 stringseed.sampling(seedbase = myListOfPlaces$villageName,
-                N = myListOfPlaces$population,
-                n = myListOfPlaces$requiredSample)
+               N = myListOfPlaces$population,
+               n = myListOfPlaces$requiredSample)
 
 # Manual verification of the samples generated for Melakkal village
 #   (for which the automatically generated seed was 1331891848)
