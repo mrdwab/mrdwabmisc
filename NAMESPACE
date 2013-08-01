@@ -22,11 +22,13 @@ export(concat.split,
        RBIND,
        read.so,
        getSize,
-       unbalancedReshape,
        mySOreputation,
        QAList,
        SOCodeBlocks,
-       readClip)
+       readClip,
+       NoSep,
+       Stacked,
+       Reshape)
 S3method(print, stringSeedSampling)
 S3method(print, subSequence)
 S3method(print, sampletosum)
