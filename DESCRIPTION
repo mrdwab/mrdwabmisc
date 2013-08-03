@@ -50,3 +50,4 @@ Collate:
     'Reshape.R'
     'Stacked.R'
     'rownames2col.R'
+    'expandrows.R'

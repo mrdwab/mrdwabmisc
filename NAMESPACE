@@ -28,7 +28,8 @@ export(concat.split,
        readClip,
        NoSep,
        Stacked,
-       Reshape)
+       Reshape,
+       expandrows)
 S3method(print, stringSeedSampling)
 S3method(print, subSequence)
 S3method(print, sampletosum)
