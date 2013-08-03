@@ -25,10 +25,10 @@
 NoSep <- function(data, charfirst = TRUE) {
   if (isTRUE(charfirst)) {
     Pattern <- "([[:alpha:]]+)([[:digit:]]+)"
-    Names <- c("VAR", ".time_1")
+    Names <- c(".var", ".time_1")
   } else {
     Pattern <- "([[:digit:]]+)([[:alpha:]]+)"
-    Names <- c(".time_1", "VAR")
+    Names <- c(".time_1", ".var")
   }
   setNames(data.frame(gsub(Pattern, "\\1", data), 
                       gsub(Pattern, "\\2", data)), Names)
