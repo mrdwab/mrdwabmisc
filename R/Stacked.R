@@ -36,7 +36,7 @@
 #' Stacked(mydf, id.vars = c("id_1", "id_2"),
 #'        var.stubs = c("varA", "varB", "varC"),
 #'        sep = "\\.")
-#' 
+#'        
 #' ## Different name structure
 #' names(mydf) <- sub("\\.", "", names(mydf))
 #' mydf
@@ -61,9 +61,9 @@ Stacked <- function(data, id.vars, var.stubs, sep, keep.all = TRUE, ...) {
       splitcols <- do.call(rbind.data.frame, 
               strsplit(as.character(t1$ind), split = sep))
       names(splitcols) <- 
-        c("VAR", paste(".time", 1:(length(splitcols)-1), sep = "_"))
+        c(".var", paste(".time", 1:(length(splitcols)-1), sep = "_"))
     }
-    names(t1)[1] <- as.character(splitcols$VAR[1])
+    names(t1)[1] <- as.character(splitcols$.var[1])
     t1$ind <- NULL
     timevars <- grep(".time_", names(splitcols), value = TRUE)
     if (isTRUE(keep.all)) {
