@@ -29,7 +29,11 @@ export(concat.split,
        NoSep,
        Stacked,
        Reshape,
-       expandrows)
+       expandrows,
+       concat.split.compact,
+       concat.split.expanded,
+       concat.split.list,
+       concat.split.multiple)
 S3method(print, stringSeedSampling)
 S3method(print, subSequence)
 S3method(print, sampletosum)
