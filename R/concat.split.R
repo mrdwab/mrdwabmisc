@@ -1,7 +1,188 @@
+#' Split concatenated cells in a \code{data.frame} into a condensed format
+#' 
+#' The default splitting method for \code{\link{concat.split}}. Uses
+#' \code{\link{read.concat}} to do most of the processing.
+#' 
+#' 
+#' @param data The source \code{data.frame}
+#' @param split.col The variable that needs to be split (either name or index
+#' position).
+#' @param sep The character separating each value.
+#' @param drop Logical. Should the original variable be dropped? Defaults to
+#' \code{FALSE}.
+#' @param fixed An unused dummy argument to make the function compatible with
+#' \code{\link{concat.split.expanded}}.
+#' @return A \code{data.frame}
+#' @author Ananda Mahto
+#' @seealso \code{\link{read.concat}}, \code{\link{concat.split}},
+#' \code{\link{concat.split.list}}, \code{\link{concat.split.expanded}}, \code{\link{concat.split.multiple}}
+#' @examples
+#' 
+#' temp <- head(concat.test)
+#' concat.split.compact(temp, "Likes")
+#' concat.split.compact(temp, 4, ";")
+#' concat.split.compact(temp, "Siblings", drop = TRUE)
+#' 
+#' \dontshow{rm(temp)}
+#' 
+#' @export concat.split.compact
+concat.split.compact <- function(data, split.col, sep = ",", drop = FALSE, fixed = NULL) {
+  if (!isTRUE(is.character(data[split.col]))) a <- as.character(data[[split.col]])
+  else a <- data[[split.col]]
+  
+  t1 <- read.concat(a, names(data[split.col]), sep)
+  if (isTRUE(drop)) cbind(data[othernames(data, split.col)], t1)
+  else cbind(data, t1)
+}
+
+
+
+
+
+
+
+#' Split numeric concatenated values into their corresponding column position
+#' 
+#' "Expand" concatenated numeric values to their relevant position in a
+#' \code{data.frame}.
+#' 
+#' 
+#' @param data The source \code{data.frame}
+#' @param split.col The variable that needs to be split (either name or index
+#' position).
+#' @param sep The character separating each value. Can also be a regular
+#' expression.
+#' @param mode Can be either \code{"binary"} (where presence of a number in a
+#' given column is converted to "1") or \code{"value"} (where the value is
+#' retained and not recoded to "1").
+#' @param drop Logical. Should the original variable be dropped? Defaults to
+#' \code{FALSE}.
+#' @param fixed Used for \code{strsplit} for allowing regular expressions to be
+#' used.
+#' @param fill Desired "fill" value. Defaults to \code{NA}.
+#' @return A \code{data.frame}
+#' @note When \code{mode = "binary"} is selected, the function calls
+#' \code{\link{binaryMat}} to expand the values. When \code{mode = "value"} is
+#' selected, the function calls \code{\link{valueMat}}.
+#' @author Ananda Mahto
+#' @seealso \code{\link{concat.split}}, \code{\link{concat.split.list}},
+#' \code{\link{concat.split.expanded}}, \code{\link{concat.split.multiple}}, \code{\link{binaryMat}},
+#' \code{\link{valueMat}}
+#' @examples
+#' 
+#' temp <- head(concat.test)
+#' concat.split.expanded(temp, "Likes")
+#' concat.split.expanded(temp, 4, ";")
+#' concat.split.expanded(temp, 4, ";", mode = "value", drop = TRUE)
+#' 
+#' ## Note the warning
+#' concat.split.expanded(temp, "Siblings", drop = TRUE)
+#' 
+#' \dontshow{rm(temp)}
+#' 
+#' @export concat.split.expanded
+concat.split.expanded <- function(data, split.col, sep = ",", mode = NULL, 
+                                  drop = FALSE, fixed = FALSE, fill = NA) {
+  if (!isTRUE(is.character(data[split.col]))) a <- as.character(data[[split.col]])
+  else a <- data[[split.col]]
+  
+  b <- strsplit(a, sep, fixed = fixed)
+  
+  if (suppressWarnings(is.na(try(max(as.numeric(unlist(b))))))) {
+    temp1 <- concat.split.compact(data, split.col =  split.col, sep = sep, 
+                                  drop = drop, fixed = fixed)
+    message("Your concatenated variable is a string.
+            We have used 'concat.split.compact' instead.")
+  } else if (!is.na(try(max(as.numeric(unlist(b)))))) {
+    if (is.null(mode)) mode = "binary"
+    nchars <- max(nchar(unlist(b)))
+    temp1 <- switch(
+      mode,
+      binary = {
+        temp <- binaryMat(b, fill = fill)
+        colnames(temp) <- 
+          sprintf(paste0(names(data[split.col]), "_%0", nchars, "d"), 1:ncol(temp))
+        temp
+      },
+      value = {
+        temp <- valueMat(b, fill = fill)
+        colnames(temp) <- 
+          sprintf(paste0(names(data[split.col]), "_%0", nchars, "d"), 1:ncol(temp))
+        temp
+      },
+      stop("'mode' must be 'binary' or 'value'"))
+    temp1 <- cbind(data, temp1)
+  }
+  
+  if (isTRUE(drop)) temp1[othernames(data, split.col)]
+  else temp1
+}
+
+
+
+
+
+
+
+#' Split concatenated cells in a \code{data.frame} into a \code{list} format
+#' 
+#' Takes a column in a \code{data.frame} with multiple values, splits the
+#' values into a \code{list}, and returns a new \code{data.frame}.
+#' 
+#' 
+#' @param data The source \code{data.frame}.
+#' @param split.col The variable that needs to be split (either name or index
+#' position).
+#' @param sep The character separating each value. Can also be a regular
+#' expression.
+#' @param drop Logical. Should the original variable be dropped? Defaults to
+#' \code{FALSE}.
+#' @param fixed Used for \code{\link{strsplit}} for allowing regular
+#' expressions to be used.
+#' @return A \code{data.frame}
+#' @author Ananda Mahto
+#' @seealso \code{\link{concat.split}}, \code{\link{concat.split.condensed}},
+#' \code{\link{concat.split.expanded}}, \code{\link{concat.split.multiple}}
+#' @examples
+#' 
+#' temp <- head(concat.test)
+#' str(concat.split.list(temp, "Likes"))
+#' concat.split.list(temp, 4, ";")
+#' concat.split.list(temp, 4, ";", drop = TRUE)
+#' 
+#' \dontshow{rm(temp)}
+#' 
+#' @export concat.split.list
+concat.split.list <- function(data, split.col, sep = ",", 
+                              drop = FALSE, fixed = FALSE) {
+  if (!isTRUE(is.character(data[split.col]))) a <- as.character(data[[split.col]])
+  else a <- data[[split.col]]
+  
+  varname <- paste(names(data[split.col]), "list", sep="_")
+  b <- strsplit(a, sep, fixed = fixed)
+  
+  if (suppressWarnings(is.na(try(max(as.numeric(unlist(b))))))) {
+    data[varname] <- list(
+      lapply(lapply(b, as.character),
+             function(x) gsub("^\\s+|\\s+$", "", x)))
+  } else if (!is.na(try(max(as.numeric(unlist(b)))))) {
+    data[varname] <- list(lapply(b, as.numeric))
+  }
+  if (isTRUE(drop)) data[othernames(data, split.col)]
+  else data
+}
+
+
+
+
+
+
+
+
 #' Split concatenated cells in a \code{data.frame}
 #' 
-#' The concat.split function takes a column with multiple values, splits the
-#' values into a list or into separate columns, and returns a new data.frame.
+#' The \code{concat.split} function takes a column with multiple values, splits the
+#' values into a \code{list} or into separate columns, and returns a new \code{data.frame}.
 #' 
 #' \emph{structure} \itemize{ \item \code{"compact"} creates as many columns as
 #' the maximum length of the resulting split. This is the most useful
@@ -9,12 +190,12 @@
 #' \code{"expanded"} creates as many columns as the maximum value of the input
 #' data. This is most useful when converting to \code{mode = "binary"}. \item
 #' \code{"list"} creates a single new column that is structurally a
-#' \code{\link{list}} within a \code{\link{data.frame}}. } \emph{fixed} When
-#' \code{structure = "expanded"} or \code{structure = "list"}, it is possible
-#' to supply a a regular expression containing the characters to split on.  For
-#' example, to split on \code{","}, \code{";"}, or \code{"|"}, you can set
-#' \code{sep = ",|;|\|"} or \code{sep = "[,;|]"}, and \code{fixed = FALSE} to
-#' split on any of those characters.
+#' \code{\link{list}} within a \code{\link{data.frame}}. } \emph{fixed}
+#' \itemize{ \item When \code{structure = "expanded"} or \code{structure =
+#' "list"}, it is possible to supply a a regular expression containing the
+#' characters to split on.  For example, to split on \code{","}, \code{";"}, or
+#' \code{"|"}, you can set \code{sep = ",|;|\|"} or \code{sep = "[,;|]"}, and
+#' \code{fixed = FALSE} to split on any of those characters.}
 #' 
 #' @param data The source data.frame
 #' @param split.col The variable that needs to be split; can be specified
@@ -25,15 +206,18 @@
 #' @param mode Can be either binary or value (where binary is default and it
 #' recodes values to 1 or NA, like Boolean data, but without assuming 0 when
 #' data is not available).  This setting only applies when structure =
-#' "expanded"; an warning message will be issued if used with other structures.
+#' "expanded"; a warning message will be issued if used with other structures.
 #' @param drop.col Logical (whether to remove the original variable from the
-#' output or not). Defaults to TRUE.
+#' output or not). Defaults to \code{FALSE}.
 #' @param fixed Is the input for the \code{sep} value \emph{fixed}, or a
 #' \emph{regular expression}? See Details.
 #' @note If using \code{structure = "compact"}, the value for \code{sep} can
 #' only be a single character. See the "Advanced Usage" example of how to
 #' specify multiple characters for batch conversion of columns.
 #' @author Ananda Mahto
+#' @seealso \code{\link{concat.split.condensed}},
+#' \code{\link{concat.split.expanded}}, \code{\link{concat.split.list}},
+#' \code{\link{concat.split.multiple}}
 #' @references \itemize{ \item See
 #' \url{http://stackoverflow.com/q/10100887/1270695} \item The
 #' \code{"condensed"} setting was inspired by an answer from David Winsemius to
@@ -42,138 +226,113 @@
 #' @examples
 #' 
 #' ## Load some data
-#' head(concat.test)
+#' temp <- head(concat.test)
 #' 
 #' # Split up the second column, selecting by column number
-#' head(concat.split(concat.test, 2))
+#' concat.split(temp, 2)
 #' 
 #' # ... or by name, and drop the offensive first column
-#' head(concat.split(concat.test, "Likes", drop.col = TRUE))
+#' concat.split(temp, "Likes", drop.col = TRUE)
 #' 
 #' # The "Hates" column uses a different separator
-#' head(concat.split(concat.test, "Hates", sep = ";", drop.col = TRUE))
+#' concat.split(temp, "Hates", sep = ";", drop.col = TRUE)
 #' 
 #' \dontrun{
 #' # You'll get a warning here, when trying to retain the original values
-#' head(concat.split(concat.test, 2, mode = "value", drop.col = TRUE))
+#' concat.split(temp, 2, mode = "value", drop.col = TRUE)
 #' }
 #' 
 #' # Try again. Notice the differing number of resulting columns
-#' head(concat.split(concat.test, 2, structure = "expanded",
-#' mode = "value", drop.col = TRUE))
+#' concat.split(temp, 2, structure = "expanded",
+#' mode = "value", drop.col = TRUE)
 #' 
 #' # Let's try splitting some strings... Same syntax
-#' head(concat.split(concat.test, 3, drop.col = TRUE))
+#' concat.split(temp, 3, drop.col = TRUE)
 #' 
 #' # Split up the "Likes column" into a list variable; retain original column
 #' head(concat.split(concat.test, 2, structure = "list", drop.col=FALSE))
 #' 
-#' # View the structure of the output for the first 10 rows to verify
-#' # that the new column is a list; note the difference between "Likes"
-#' # and "Likes_list".
-#' str(concat.split(concat.test, 2, structure = "list",
-#' drop.col=FALSE)[1:10, c(2, 5)])
-#' 
-#' # ADVANCED USAGE ###
-#' 
-#' # Show just the first few lines, compact structure
-#' # Note that the split characters must be specified
-#' #   in the same order that lapply will encounter them
-#' head(do.call(cbind,
-#'         c(concat.test[1],
-#'           lapply(1:(ncol(concat.test)-1),
-#'                  function(x) {
-#'                      splitchars = c(",", ",", ";")
-#'                      concat.split(concat.test[-1][x], 1,
-#'                                   splitchars[x],
-#'                                   drop.col=TRUE)
-#'                                   }))))
+#' # View the structure of the output to verify
+#' # that the new column is a list; note the
+#' # difference between "Likes" and "Likes_list".
+#' str(concat.split(temp, 2, structure = "list", drop.col=FALSE))
 #' 
 #' @export concat.split
 concat.split <- function(data, split.col, sep = ",", structure = "compact",
-                        mode = NULL, drop.col = FALSE, fixed = FALSE) {
-    
-    # Check to see if split.col is specified by name or position
-    if (is.numeric(split.col)) split.col = split.col
-    else split.col = which(colnames(data) %in% split.col)
-    
-    # Split the data
-    a = as.character(data[ , split.col])
-    b = strsplit(a, sep, fixed = fixed)
-    
-    temp <- switch(
-        structure, 
-        compact = {
-            t1 <- read.table(text = a, sep = sep, fill = TRUE,
-                             row.names = NULL, header = FALSE,
-                             blank.lines.skip = FALSE, 
-                             strip.white = TRUE)
-            names(t1) <- paste(names(data[split.col]), 
-                               seq(ncol(t1)), sep="_")
-            if (!is.null(mode)) 
-                warning("
-                        'mode' supplied but ignored. 
-                        'mode' setting only applicable 
-                        when structure='expanded'.")
-            if (isTRUE(drop.col)) cbind(data[-split.col], t1)
-            else cbind(data, t1)
-        },
-        list = {
-            varname = paste(names(data[split.col]), "list", sep="_")
-            if (suppressWarnings(is.na(try(max(as.numeric(unlist(b))))))) {
-                data[varname] = list(
-                    lapply(lapply(b, as.character),
-                           function(x) gsub("^\\s+|\\s+$", "", x)))
-            } else if (!is.na(try(max(as.numeric(unlist(b)))))) {
-                data[varname] = list(lapply(b, as.numeric))
-            }
-            if (!is.null(mode)) 
-                warning("
-                        'mode' supplied but ignored. 
-                        'mode' setting only applicable 
-                        when structure='expanded'.")
-            if (isTRUE(drop.col)) data[-split.col]
-            else data
-        },
-        expanded = {
-            if (suppressWarnings(is.na(try(max(as.numeric(unlist(b))))))) {
-                what = "string"
-                ncol = max(unlist(lapply(b, function(i) length(i))))
-            } else if (!is.na(try(max(as.numeric(unlist(b)))))) {
-                what = "numeric"
-                ncol = max(as.numeric(unlist(b)))
-            }
-            temp1 <- switch(
-                what,
-                string = {
-                    temp = as.data.frame(t(sapply(b, '[', 1:ncol)))
-                    names(temp) = paste(names(data[split.col]),
-                                        1:ncol, sep="_")
-                    temp = apply(
-                        temp, 2, function(x) gsub("^\\s+|\\s+$", "", x))
-                    temp1 = cbind(data, temp)
-                },
-                numeric = {
-                    temp = lapply(b, as.numeric)
-                    m = matrix(nrow = nrow(data), ncol = ncol)      
-                    for (i in 1:nrow(data)) {
-                        m[i, temp[[i]]] = temp[[i]]
-                    }
-                    
-                    m = setNames(data.frame(m), 
-                                 paste(names(data[split.col]), 1:ncol, sep="_"))
-                    
-                    if (is.null(mode)) mode = "binary"
-                    temp1 <- switch(
-                        mode,
-                        binary = {cbind(data, replace(m, m != "NA", 1))},
-                        value = {cbind(data, m)},
-                        stop("'mode' must be 'binary' or 'value'"))
-                })
-            if (isTRUE(drop.col)) temp1[-split.col]
-            else temp1
-        },
-        stop("'structure' must be either 'compact', 'expanded', or 'list'"))
-    temp[temp == ""] <- NA
-    temp
+                         mode = NULL, drop.col = FALSE, fixed = FALSE, fill = NA) {
+  
+  Message <- paste(c("", "'mode' supplied but ignored.", 
+                     "'mode' setting only applicable",
+                     "when structure = 'expanded'"), collapse = "\n")
+  temp <- switch(
+    structure, 
+    compact = {
+      if (!is.null(mode)) warning(Message)
+      concat.split.compact(data = data, split.col = split.col, sep = sep,
+                           drop = drop.col, fixed = fixed)
+    },
+    list = {
+      if (!is.null(mode)) warning(Message)
+      concat.split.list(data = data, split.col = split.col, sep = sep,
+                        drop = drop.col, fixed = fixed)
+    },
+    expanded = {
+      concat.split.expanded(data = data, split.col = split.col, sep = sep, 
+                            mode = mode, drop = drop.col, fixed = fixed, fill = fill)
+    },
+    stop("'structure' must be either 'compact', 'expanded', or 'list'"))
+  temp
+}
+
+
+
+
+
+
+
+#' Split concatenated cells in a \code{data.frame} and optionally reshape the output
+#' 
+#' This is an extended version of the \code{\link{concat.split.condensed}} function that allows the user to split multiple columns at once and optionally use the \code{\link{Reshape}} function to convert the \code{data.frame} into a "long" format.
+#' 
+#' @param data The source \code{data.frame}.
+#' @param split.cols A vector of columns that need to be split.
+#' @param seps A vector of the separator character used in each column. If all columns use the same character, you can enter that single character.
+#' @param direction The desired form of the resulting \code{data.frame}, either \code{'wide'} or \code{'long'}.
+#' @return A \code{data.frame}
+#' @author Ananda Mahto
+#' @seealso \code{\link{concat.split}}, \code{\link{concat.split.condensed}},
+#' \code{\link{concat.split.expanded}}, \code{\link{concat.split.multiple}}, \code{\link{Reshape}}
+#' @examples
+#' 
+#' temp <- head(concat.test)
+#' concat.split.multiple(temp, split.cols = c("Likes", "Hates", "Siblings"),
+#'                       seps = c(",", ";", ","))
+#' concat.split.multiple(temp, split.cols = c("Likes", "Siblings"), 
+#'                       seps = ",", direction = "long")
+#' \dontshow{rm(temp)}
+#' 
+concat.split.multiple <- function(data, split.cols, seps = ",", direction = "wide") {
+  IDs <- othernames(data, split.cols)
+  if (is.numeric(split.cols)) split.cols <- names(data)[split.cols]
+  if (length(seps) == 1) seps <- rep(seps, length(split.cols))
+  if (length(seps) != length(split.cols)) {
+    stop("Verify you have entered the correct number of seps")
+  }
+  temp <- lapply(seq_along(split.cols), function(x) {
+    concat.split(data[split.cols[x]], split.cols[x], seps[x], drop = TRUE)
+  })
+  
+  out <- switch(
+    direction, 
+    wide = {
+      cbind(data[IDs], do.call(cbind, temp))
+    },
+    long = {
+      Reshape(cbind(data[IDs], do.call(cbind, temp)), id.vars = IDs, 
+              var.stubs = split.cols, sep = "_")
+    },
+    stop("'direction' must be either 'wide' or 'long'.")
+  )
+  out[out == ""] <- NA
+  out
 }
