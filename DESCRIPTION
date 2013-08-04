@@ -51,3 +51,4 @@ Collate:
     'Stacked.R'
     'rownames2col.R'
     'expandrows.R'
+    'padNArows.R'
