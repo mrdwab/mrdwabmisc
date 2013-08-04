@@ -35,6 +35,6 @@ expandrows <- function(dataset, count, count.is.col = TRUE) {
     }
   } else {
     dataset[rep(rownames(dataset), dataset[[count]]), 
-            setdiff(names(dataset), names(dataset[count]))]
+            othernames(dataset, count)]
   }
 }
