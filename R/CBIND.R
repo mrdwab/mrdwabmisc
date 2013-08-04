@@ -34,13 +34,5 @@
 CBIND <- function(datalist) {
   datalist <- LinearizeNestedList(datalist)
   nrows <- max(sapply(datalist, nrow))
-  expandmyrows <- function(mydata, rowsneeded) {
-    temp1 = names(mydata)
-    rowsneeded = rowsneeded - nrow(mydata)
-    temp2 = setNames(data.frame(
-      matrix(rep(NA, length(temp1) * rowsneeded),
-             ncol = length(temp1))), temp1)
-    rbind(mydata, temp2)
-  }
-  do.call(cbind, lapply(datalist, expandmyrows, rowsneeded = nrows))
+  do.call(cbind, lapply(datalist, padNArows, rowsneeded = nrows))
 }
