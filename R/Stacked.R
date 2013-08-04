@@ -36,7 +36,7 @@
 #' Stacked(mydf, id.vars = c("id_1", "id_2"),
 #'        var.stubs = c("varA", "varB", "varC"),
 #'        sep = "\\.")
-#'        
+#' 
 #' ## Different name structure
 #' names(mydf) <- sub("\\.", "", names(mydf))
 #' mydf
