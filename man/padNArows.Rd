@@ -20,7 +20,7 @@
 }
 \examples{
 mydf <- data.frame(a = 1:3, b = c("a", "b", "c"))
-padNArows(mydf, 10)
+mrdwabmisc:::padNArows(mydf, 10)
 
 \dontshow{rm(mydf)}
 }
