@@ -30,6 +30,8 @@ NULL
 
 
 
+
+
 #' Clean text within \code{<pre><code>} tag blocks
 #' 
 #' Text within \code{<pre><code>} tag blocks need to be "cleaned". For R code
@@ -50,6 +52,8 @@ PreTagClean <- function(x) {
   x
 }
 NULL
+
+
 
 
 

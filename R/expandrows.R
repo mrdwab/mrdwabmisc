@@ -1,10 +1,13 @@
 #' "Expand" the rows of a dataset
 #' 
-#' Replicates each row in a dataset either by a count column specified within the dataset or by a value or vector of values specified by the user.
+#' Replicates each row in a dataset either by a count column specified within
+#' the dataset or by a value or vector of values specified by the user.
+#' 
 #' 
 #' @param dataset The input \code{data.frame}.
 #' @param count The vector of counts or the column that contains the counts.
-#' @param count.is.col Logical. Is the \code{count} value a column in the \code{data.frame}? Defaults to \code{TRUE}.
+#' @param count.is.col Logical. Is the \code{count} value a column in the
+#' \code{data.frame}? Defaults to \code{TRUE}.
 #' @return A \code{data.frame}.
 #' @author Ananda Mahto
 #' @seealso \code{\link{rep}}
@@ -19,6 +22,7 @@
 #' 
 #' \dontshow{rm(mydf)}
 #' 
+#' @export expandrows
 expandrows <- function(dataset, count, count.is.col = TRUE) {
   if (!isTRUE(count.is.col)) {
     if (length(count) == 1) {
