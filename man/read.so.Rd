@@ -15,6 +15,9 @@
 
   \item{out}{Desired output object name. Defaults to
   \code{mydf}.}
+
+  \item{stringsAsFactors}{Should strings be treated as
+  \code{factor}s. Defaults to \code{FALSE}.}
 }
 \description{
   For many questions at Stack Overflow, the question asker

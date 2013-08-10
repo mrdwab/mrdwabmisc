@@ -16,6 +16,7 @@
 #' can be specified here.
 #' @param header Are headers included?
 #' @param out Desired output object name. Defaults to \code{mydf}.
+#' @param stringsAsFactors Should strings be treated as \code{factor}s. Defaults to \code{FALSE}.
 #' @author Ananda Mahto
 #' @seealso \code{\link{dput}}, \code{\link{read.table}}
 #' @examples
