@@ -16,7 +16,7 @@
 ## concat.split
 data(concatenated)
 head(concat.test)
-head(concat.split(concat.test, "Likes", drop.col = TRUE))
+head(concat.split(concat.test, "Likes", drop = TRUE))
 \dontshow{rm(concat.test)}
 
 ## sample.size
