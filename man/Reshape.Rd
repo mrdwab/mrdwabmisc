@@ -1,8 +1,8 @@
 \name{Reshape}
 \alias{Reshape}
-\title{Reshape wide data into a long form}
+\title{Reshape wide data into a semi-long form}
 \usage{
-  Reshape(data, id.vars, var.stubs, sep = "\\.", ...)
+  Reshape(data, id.vars, var.stubs, sep = ".", ...)
 }
 \arguments{
   \item{data}{The source \code{data.frame}.}

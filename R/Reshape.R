@@ -1,4 +1,4 @@
-#' Reshape wide data into a long form
+#' Reshape wide data into a semi-long form
 #' 
 #' The \code{\link{reshape}} function in base R is very handy when you want a
 #' semi-long (or semi-wide) \code{data.frame}. However, base R's \code{reshape}
@@ -47,7 +47,8 @@
 #'        var.stubs = c("varA", "varB", "varC"))
 #' 
 #' @export Reshape
-Reshape <- function(data, id.vars, var.stubs, sep = "\\.", ...) {
+Reshape <- function(data, id.vars, var.stubs, sep = ".", ...) {
+  if (sep == ".") sep <- "\\."
   vGrep <- Vectorize(grep, "pattern", SIMPLIFY = FALSE)
   temp <- names(data)[names(data) %in% 
                         unlist(vGrep(var.stubs, names(data), 
