@@ -6,7 +6,7 @@
     mode = NULL, drop = FALSE, fixed = FALSE, fill = NA)
 }
 \arguments{
-  \item{data}{The source \code{data.frame}}
+  \item{data}{The source \code{data.frame}.}
 
   \item{split.col}{The variable that needs to be split
   (either name or index position).}
@@ -57,7 +57,7 @@ concat.split.expanded(temp, "Siblings", drop = TRUE)
 \seealso{
   \code{\link{concat.split}},
   \code{\link{concat.split.list}},
-  \code{\link{concat.split.expanded}},
+  \code{\link{concat.split.compact}},
   \code{\link{concat.split.multiple}},
   \code{\link{binaryMat}}, \code{\link{valueMat}}
 }

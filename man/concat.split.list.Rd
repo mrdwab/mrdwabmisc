@@ -21,7 +21,8 @@
   regular expressions to be used.}
 }
 \value{
-  A \code{data.frame}
+  A \code{data.frame} with the concatenated column split
+  and added as a \code{list}.
 }
 \description{
   Takes a column in a \code{data.frame} with multiple
@@ -41,7 +42,7 @@ concat.split.list(temp, 4, ";", drop = TRUE)
 }
 \seealso{
   \code{\link{concat.split}},
-  \code{\link{concat.split.condensed}},
+  \code{\link{concat.split.compact}},
   \code{\link{concat.split.expanded}},
   \code{\link{concat.split.multiple}}
 }
