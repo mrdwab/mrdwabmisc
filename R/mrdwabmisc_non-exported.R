@@ -24,24 +24,7 @@ padNArows <- function(mydata, rowsneeded) {
            ncol = length(temp1))), temp1)
   rbind(mydata, temp2)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+NULL
 
 #' Extract all names from a \code{data.frame} other than the one listed
 #' 
@@ -64,24 +47,7 @@ padNArows <- function(mydata, rowsneeded) {
 othernames <- function(data, toremove) {
   setdiff(names(data), names(data[toremove]))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+NULL
 
 #' Read concatenated character vectors into a \code{data.frame}
 #' 
@@ -104,6 +70,7 @@ othernames <- function(data, toremove) {
 #' \dontshow{rm(vec)}
 #' 
 read.concat <- function(data, col.prefix, sep) {
+  if (!is.character(data)) data <- as.character(data)
   t1 <- read.table(text = data, sep = sep, fill = TRUE,
                    row.names = NULL, header = FALSE,
                    blank.lines.skip = FALSE, 
@@ -111,20 +78,7 @@ read.concat <- function(data, col.prefix, sep) {
   names(t1) <- paste(col.prefix, seq(ncol(t1)), sep = "_")
   t1
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+NULL
 
 #' Create a binary matrix from a list of values
 #' 
@@ -160,19 +114,7 @@ binaryMat <- function(listOfValues, fill = NA) {
   }
   m
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
+NULL
 
 #' Create a binary matrix from a list of values
 #' 
@@ -208,3 +150,4 @@ valueMat <- function(listOfValues, fill = NA) {
   }
   m
 }
+NULL

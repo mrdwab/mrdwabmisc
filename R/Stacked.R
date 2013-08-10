@@ -48,7 +48,6 @@
 #' 
 #' @export Stacked
 Stacked <- function(data, id.vars, var.stubs, sep, keep.all = TRUE, ...) {
-  require(data.table)
   vGrep <- Vectorize(grep, "pattern", SIMPLIFY = FALSE)
   data <- FacsToChars(data)
   temp1 <- vGrep(var.stubs, names(data))
@@ -72,15 +71,15 @@ Stacked <- function(data, id.vars, var.stubs, sep, keep.all = TRUE, ...) {
               splitcols[!names(splitcols) %in% 
                           setdiff(names(splitcols), timevars)], 
               t1, data[setdiff(seq_along(data), 
-                               c(match(id.vars, names(data)),
+                               c(match(names(data[id.vars]), names(data)),
                                  unlist(temp1)))]), 
-        key = c(id.vars, timevars))
+        key = c(names(data[id.vars]), timevars))
     } else {
       t2 <- data.table(
         cbind(data[id.vars], 
               splitcols[!names(splitcols) %in% 
                           setdiff(names(splitcols), timevars)], t1), 
-        key = c(id.vars, timevars))
+        key = c(names(data[id.vars]), timevars))
     }
     t2
   }))
