@@ -134,7 +134,7 @@ stratified <- function(df, group, size, select = NULL, seed = NULL, ...) {
     df <- df
   } else {
     if (is.null(names(select))) stop("'select' must be a named list")
-    if (!all(names(select) %in% names(dat1))) 
+    if (!all(names(select) %in% names(df))) 
       stop("Please verify your 'select' argument")
     temp <- sapply(names(select), 
                    function(x) df[[x]] %in% select[[x]])

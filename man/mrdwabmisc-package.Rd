@@ -9,16 +9,10 @@
 }
 \details{
   \tabular{ll}{ Package: \tab mrdwabmisc\cr Type: \tab
-  Package\cr Version: \tab 1.0\cr Date: \tab 2013-01-22\cr
-  License: \tab GPL-2\cr }
+  Package\cr Version: \tab 0.2.0\cr Date: \tab
+  2013-08-14\cr License: \tab GPL-3\cr }
 }
 \examples{
-## concat.split
-data(concatenated)
-head(concat.test)
-head(concat.split(concat.test, "Likes", drop = TRUE))
-\dontshow{rm(concat.test)}
-
 ## sample.size
 sample.size(population = 300)
 sample.size(population = 300, c.lev = 97)
@@ -39,14 +33,6 @@ df2 <- data.frame(C = 1:3, D = letters[1:3])
 df3 <- data.frame(E = 1:8, F = letters[1:8], G = LETTERS[1:8])
 #'CBIND(list(df1, df2, df3))
 
-## FacsToChars
-dat <- data.frame(title = c("title1", "title2", "title3"),
-         author = c("author1", "author2", "author3"),
-         customerID = c(1, 2, 1))
-str(dat)
-FacsToChars(dat, overwrite = TRUE)
-str(dat)
-
 ## makemeNA
 # Some sample data
 temp <- data.frame(
@@ -57,12 +43,12 @@ V4 = c(".", "*", "3"))
 temp
 makemeNA(temp, c("*", "."))
 
-\dontshow{rm(dat, df1, df2, df3, temp)}
+\dontshow{rm(df1, df2, df3, temp)}
 }
 \author{
   Ananda Mahto
 
-  Maintainer: Ananda Mahto <mrdwab@gmail.com>
+  Maintainer: Ananda Mahto <ananda@mahto.info>
 }
 \keyword{package}
 
