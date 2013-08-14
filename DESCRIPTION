@@ -1,21 +1,21 @@
 Package: mrdwabmisc
 Type: Package
 Title: Miscellaneous R functions, mostly for data processing
-Version: 1.1
+Version: 0.2.0
 Date: 2013-08-01
 Author: Ananda Mahto
-Maintainer: Ananda Mahto <mrdwab@gmail.com>
+Maintainer: Ananda Mahto <ananda@mahto.info>
 Description: Miscellaneous R functions, some utility, some to play with
     Stack Overflow and others to clean and organize data.
 LazyData: TRUE
 Depends:
     R (>= 2.10),
     digest,
-    data.table
-License: GPL-2
+    data.table,
+    splitstackshape
+License: GPL-3
 LazyLoad: yes
 Collate:
-    'concat.split.R'
     'df.sorter.R'
     'multi.freq.table.R'
     'random.names.R'
@@ -29,7 +29,6 @@ Collate:
     'aggregate2.R'
     'CBIND.R'
     'dfcols.list.R'
-    'FacsToChars.R'
     'getSize.R'
     'LinearizeNestedList.R'
     'load.scripts.and.data.R'
@@ -46,9 +45,6 @@ Collate:
     'SOPageLoaderHelper.R'
     'SOPrintMethods.R'
     'StackOverflow.R'
-    'NoSep.R'
-    'Reshape.R'
-    'Stacked.R'
     'rownames2col.R'
     'expandrows.R'
     'mrdwabmisc_non-exported.R'
