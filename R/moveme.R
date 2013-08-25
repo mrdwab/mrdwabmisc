@@ -29,7 +29,7 @@
 #' moveme(myvec, "a last; b, e, g before d; c first; h after j")
 #' 
 #' \dontshow{rm(myvec)}
-#' 
+#' @export moveme
 moveme <- function(invec, movecommand) {
   movecommand <- lapply(strsplit(strsplit(movecommand, ";")[[1]], ",|\\s+"), 
                         function(x) x[x != ""])
