@@ -39,7 +39,6 @@ Collate:
     'round2.R'
     'SampleToSum.R'
     'subsequence.R'
-    'unlistDF.R'
     'mySOreputation.R'
     'readClip.R'
     'SOPageLoaderHelper.R'
