@@ -4,12 +4,9 @@
 #' \code{data.frame}. This is easy to achieve, and even easier with this helper
 #' function.
 #' 
-#' 
 #' @param inDF The input \code{data.frame}.
 #' @param RowName The desired name of the new column that will be created.
 #' Defaults to "\code{.rownames}".
-#' @param overwrite Logical. Should the original \code{data.frame} be
-#' overwritten? Defaults to \code{TRUE}.
 #' @return A \code{data.frame} with \code{rownames} set to \code{NULL} and the
 #' original \code{rownames} added as a column.
 #' @author Ananda Mahto
@@ -19,17 +16,13 @@
 #' mydf <- data.frame(x = 1:5, y = letters[1:5],
 #'                    row.names = c("one", "two", "three", "four", "five"))
 #' mydf
-#' rownames2col(mydf, overwrite = FALSE)
+#' rownames2col(mydf)
 #' 
 #' \dontshow{rm(mydf)}
 #' 
 #' @export rownames2col
-rownames2col <- function(inDF, RowName = ".rownames", overwrite = TRUE) {
+rownames2col <- function(inDF, RowName = ".rownames") {
   temp <- data.frame(rownames(inDF), inDF, row.names = NULL)
   names(temp)[1] <- RowName
-  if (isTRUE(overwrite)) {
-    assign(deparse(substitute(inDF)), temp, envir = .GlobalEnv)
-  } else {
-    temp
-  }
+  temp
 }

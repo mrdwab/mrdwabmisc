@@ -2,8 +2,7 @@
 \alias{makemeNA}
 \title{Make certain values in a \code{data.frame} \code{NA}}
 \usage{
-  makemeNA(mydf, NAStrings, fixed = TRUE,
-    overwrite = FALSE)
+  makemeNA(mydf, NAStrings, fixed = TRUE)
 }
 \arguments{
   \item{mydf}{A \code{data.frame} in which some values need
@@ -15,9 +14,6 @@
   \item{fixed}{Logical. Is the \code{NAStrings} argument a
   fixed character (or vector of characters) or a regular
   expression? Defaults to \code{TRUE}.}
-
-  \item{overwrite}{Logical. Should the current object be
-  overwritten? Defaults to \code{FALSE}}
 }
 \description{
   Sometimes, after having read in data, one needs to
