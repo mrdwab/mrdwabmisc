@@ -23,6 +23,7 @@
 #' 
 #' \dontshow{rm(mydf)}
 #' 
+#' @export rownames2col
 rownames2col <- function(inDF, RowName = ".rownames", overwrite = TRUE) {
   temp <- data.frame(rownames(inDF), inDF, row.names = NULL)
   names(temp)[1] <- RowName
