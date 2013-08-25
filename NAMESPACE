@@ -25,7 +25,8 @@ export(df.sorter,
        SOCodeBlocks,
        readClip,
        expandrows,
-       rownames2col)
+       rownames2col,
+       moveme)
 S3method(print, stringSeedSampling)
 S3method(print, subSequence)
 S3method(print, sampletosum)

@@ -48,3 +48,4 @@ Collate:
     'rownames2col.R'
     'expandrows.R'
     'mrdwabmisc_non-exported.R'
+    'moveme.R'
