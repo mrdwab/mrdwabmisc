@@ -2,8 +2,8 @@
 \alias{stratified}
 \title{Sample from a \code{data.frame} according to a stratification variable}
 \usage{
-  stratified(df, group, size, select = NULL, seed = NULL,
-    ...)
+  stratified(df, group, size, select = NULL,
+    replace = FALSE, ...)
 }
 \arguments{
   \item{df}{The source \code{data.frame}.}
@@ -34,10 +34,6 @@
   names must be present as variable names for the input
   \code{data.frame}.}
 
-  \item{seed}{The seed that you want to use (using
-  \code{\link{set.seed}} \emph{within} the function, if
-  any. Defaults to \code{NULL}.}
-
   \item{\dots}{Further arguments to be passed to the
   \code{\link{sample}} function.}
 }
@@ -56,38 +52,6 @@
   approach, the size per strata that results when
   specifying a proportionate sample may be slightly higher
   or lower per strata than you might have expected.
-
-  \emph{"Seed" argument}
-
-  This is different from using \code{\link{set.seed}}
-  before using the function. Setting a seed using this
-  argument is equivalent to using \code{set.seed} each time
-  that you go to take a sample from a different group (in
-  other words, the same seed is used for each group).
-
-  The inclusion of a \code{seed} argument is mostly a
-  matter of convenience, to be able to have a single seed
-  with which the samples can be verified later. However, by
-  using the \code{seed} argument, the same seed is used to
-  sample from each group. This may be a problem if there
-  are many groups that have the same number of
-  observations, since it means that the same observation
-  number will be selected from each of those grops. For
-  instance, if group "AA" and "DD" both had the same number
-  of observations (say, 5) and you were sampling 3 cases
-  using a seed of 1, the second, fifth, and fourth
-  observation would be taken from each of those groups. To
-  avoid this, you can set the seed using \code{set.seed}
-  \emph{before} you run the \code{\link{stratified}}
-  function.
-
-  As a user, you need to weigh the benefits and drawbacks
-  of setting the seed \emph{before} running the function as
-  opposed to setting the seed \emph{with} the function.
-  Setting the seed before would be useful if there are
-  several groups with the same number of observations;
-  however, in the slim chance that you need to verify the
-  samples manually, you \emph{may} run into problems.
 }
 \examples{
 # Generate a couple of sample data.frames to play with
@@ -104,34 +68,34 @@ dat2 <- data.frame(ID = 1:20,
 summary(dat1)
 summary(dat2)
 
-# Let's take a 10\% sample from all -A- groups in dat1, seed = 1
-stratified(dat1, "A", .1, seed = 1)
+# Let's take a 10\% sample from all -A- groups in dat1
+stratified(dat1, "A", .1)
 
-# Let's take a 10\% sample from only "AA" and "BB" groups from -A- in dat1, seed = 1
-stratified(dat1, "A", .1, select = list(A = c("AA", "BB")), seed = 1)
+# Let's take a 10\% sample from only "AA" and "BB" groups from -A- in dat1
+stratified(dat1, "A", .1, select = list(A = c("AA", "BB")))
 
 # Let's take 5 samples from all -D- groups in dat1,
-#   seed = 1, specified by column number
-stratified(dat1, group = 5, size = 5, seed = 1)
+#   specified by column number
+stratified(dat1, group = 5, size = 5)
 
-# Let's take a sample from all -A- groups in dat1, seed = 1,
+# Let's take a sample from all -A- groups in dat1
 #   where we specify the number wanted from each group
-stratified(dat1, "A", size = c(3, 5, 4, 5, 2), seed = 1)
+stratified(dat1, "A", size = c(3, 5, 4, 5, 2))
 
 # Use a two-column strata: -E- and -D-
 #   -E- varies more slowly, so it is better to put that first
-stratified(dat1, c("E", "D"), size = .15, seed = 1)
+stratified(dat1, c("E", "D"), size = .15)
 
 # Use a two-column strata (-E- and -D-) but only interested in
 #   cases where -E- == "M"
-stratified(dat1, c("E", "D"), .15, select = list(E = "M"), seed = 1)
+stratified(dat1, c("E", "D"), .15, select = list(E = "M"))
 
 ## As above, but where -E- == "M" and -D- == "CA" or "TX"
 stratified(dat1, c("E", "D"), .15,
-     select = list(E = "M", D = c("CA", "TX")), seed = 1)
+     select = list(E = "M", D = c("CA", "TX")))
 
 # Use a three-column strata: -E-, -D-, and -A-
-s.out <- stratified(dat1, c("E", "D", "A"), size = 2, seed = 1)
+s.out <- stratified(dat1, c("E", "D", "A"), size = 2)
 
 list(head(s.out), tail(s.out))
 
