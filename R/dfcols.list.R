@@ -1,4 +1,4 @@
-#' Convert the columns of a \code{data.frame} to a \code{list}
+#' Convert the Columns of a \code{data.frame} to a \code{list}
 #' 
 #' Sometimes, it is useful to have the columns of a \code{data.frame} as
 #' separate list items or vectors.  \code{\link{unlist}} is useful for creating
@@ -21,12 +21,6 @@
 #' 
 #' @export dfcols.list
 dfcols.list <- function(data, vectorize = TRUE) {
-  if (isTRUE(vectorize)) {
-    dat.list <- as.list(data)
-  } else if (!isTRUE(vectorize)) {
-    dat.list <- setNames(
-      lapply(seq_along(data), function(x) data[x]),
-      names(data))
-  }
-  dat.list
+  if (isTRUE(vectorize)) as.list(data)
+  else setNames(lapply(names(data), function(x) data[x]), names(data))
 }

@@ -1,4 +1,4 @@
-#' Use any alphanumeric input as a seed
+#' Use Any Alphanumeric Input as a Seed
 #' 
 #' The \code{\link{stringseed.sampling}} function is designed as a batch
 #' sampling function that allows the user to specify any alphanumeric input as

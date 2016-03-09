@@ -1,4 +1,4 @@
-#' Load all script and data files from specified directories
+#' Load all Script and Data Files from Specified Directories
 #' 
 #' A convenience function to read all the data files and scripts from specified
 #' directories. In general, should only need to specify the directories.

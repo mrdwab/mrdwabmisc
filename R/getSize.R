@@ -1,4 +1,4 @@
-#' Get the size of multiple objects in your workspace
+#' Get the Size of Multiple Objects in Your Workspace
 #' 
 #' This is a convenience wrapper around \code{\link{object.size}} to get the
 #' sizes of multiple objects in your workspace. By default, it will list all

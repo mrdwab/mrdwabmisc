@@ -1,18 +1,34 @@
-mrdwabmisc
-==========
+# mrdwabmisc
 
 Miscellaneous R functions, mostly for data processing.
 
 Install using:
 
 ```r
-# install.packages("devtools")
-library(devtools)
-install_github("mrdwabmisc", "mrdwab")
+source("http://news.mrdwab.com/install_github.R")
+install_github("mrdwab/mrdwabmisc")
 ```
 
-Documentation [PDF](https://github.com/mrdwab/mrdwabmisc/blob/master/mrdwabmisc.pdf?raw=true)
+--------------------
 
------------------
+## Function List
 
-A few key functions have been moved to the [splitstackshape](https://github.com/mrdwab/splitstackshape) package. Hopefully nothing's broken as a result!
+1. `aggregate2`
+1. `CBIND`
+1. `df.sorter`
+1. `dfcols.list`
+1. `getSize`
+1. `LinearizeNestedList`
+1. `load.scripts.and.data`
+1. `multi.freq.table`
+1. `mv`
+1. `mySOreputation`
+1. `RandomNames`
+1. `RBIND`
+1. `round2`
+1. `row.extractor`
+1. `sample.size`
+1. `SampleToSum`
+1. `stringseed.sampling`
+1. `subsequence`
+1. `table2df`

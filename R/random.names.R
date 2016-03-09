@@ -1,4 +1,4 @@
-#' Generate random names
+#' Generate Random Names
 #' 
 #' The \code{\link{RandomNames}} function uses data from the \emph{Genealogy
 #' Data: Frequently Occurring Surnames from Census 1990--Names Files} web page
@@ -82,14 +82,15 @@
 #' str(myCustomNames)
 #' 
 #' RandomNames(N = 15, dataset = myCustomNames)
-#' \dontshow{rm(CensusNames1990, myCustomNames)}
+#' \dontshow{rm(myCustomNames)}
 #' 
 #' @export RandomNames
 RandomNames <- function(N = 100, cat = NULL, gender = NULL, 
                         MFprob = NULL, dataset = NULL) {
+  CensusNames1990 <- NULL
   if (is.null(dataset)) {
-    data(CensusNames)
-    dataset <- CensusNames1990
+    data("CensusNames", envir = environment())
+    CensusNames1990 -> dataset
   }
   TEMP <- dataset
   possiblecats <- c("common", "rare", "average")

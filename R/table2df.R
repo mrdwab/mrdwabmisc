@@ -1,4 +1,4 @@
-#' Convert \code{table} objects to \code{data.frame}s
+#' Convert \code{table} Objects to \code{data.frame}s
 #' 
 #' The \code{\link{table2df}} function takes an object of "class"
 #' \code{\link{table}}, \code{\link{ftable}}, and \code{\link{xtabs}} and

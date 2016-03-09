@@ -1,4 +1,4 @@
-#' Rename an object in the workspace
+#' Rename an Object in the Workspace
 #' 
 #' Renames an object in the workspace, "removing" the orinal object. This does
 #' so without creating a copy of the original object. If an object in the
@@ -31,8 +31,7 @@ mv <- function (currentName, newName) {
     stop(paste(cnm, "does not exist.\n"))
   if (exists(nnm, where = 1,inherits = FALSE)) {
     ans = readline(paste("Overwrite ", nnm, "? (y/n) ", sep =  ""))
-    if (ans != "y")
-      return(invisible())
+    if (ans != "y") return(invisible())
   }
   assign(nnm, currentName, pos = 1)
   rm(list = cnm, pos = 1)

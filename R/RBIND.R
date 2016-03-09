@@ -1,4 +1,4 @@
-#' Append \code{data.frame}s by row, even when columns differ
+#' Append \code{data.frame}s by Row, Even When Columns Differ
 #' 
 #' The default \code{\link{rbind}} function will produce an error if you
 #' attempt to use it on \code{\link{data.frame}s} with differing numbers of

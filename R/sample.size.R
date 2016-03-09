@@ -1,4 +1,4 @@
-#' Determine the optimal sample size of a given population
+#' Determine the Optimal Sample Size for a Given Population
 #' 
 #' The sample.size function either calculates the optimum survey sample size
 #' when provided with a population size, or the confidence interval of using a

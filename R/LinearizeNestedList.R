@@ -1,4 +1,4 @@
-#' Linearize (un-nest) nested lists
+#' Linearize (Un-nest) Nested Lists
 #' 
 #' Implements a recursive algorithm to linearize nested \code{list}s upto any
 #' arbitrary level of nesting (limited by R's allowance for recursion-depth).
@@ -65,73 +65,35 @@
 #' @export LinearizeNestedList
 LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
                                 NameSep="/", ForceNames=FALSE) {
-    # Sanity checks:
     stopifnot(is.character(NameSep), length(NameSep) == 1)
     stopifnot(is.logical(LinearizeDataFrames), length(LinearizeDataFrames) == 1)
     stopifnot(is.logical(ForceNames), length(ForceNames) == 1)
     if (! is.list(NList)) return(NList)
-    #
-    # If no names on the top-level list coerce names. Recursion shall handle
-    # naming at all levels.
     if (is.null(names(NList)) | ForceNames == TRUE)
         names(NList) <- as.character(1:length(NList))
-    #
-    # If simply a dataframe deal promptly.
-    if (is.data.frame(NList) & LinearizeDataFrames == FALSE)
-        return(NList)
-    if (is.data.frame(NList) & LinearizeDataFrames == TRUE)
-        return(as.list(NList))
-    #
-    # Book-keeping code to employ a while loop.
+    if (is.data.frame(NList) & LinearizeDataFrames == FALSE) return(NList)
+    if (is.data.frame(NList) & LinearizeDataFrames == TRUE) return(as.list(NList))
     A <- 1
     B <- length(NList)
-    #
-    # We use a while loop to deal with the fact that the length of the nested
-    # list grows dynamically in the process of linearization.
     while (A <= B) {
         Element <- NList[[A]]
         EName <- names(NList)[A]
         if (is.list(Element)) {
-            #
-            # Before and After to keep track of the status of the top-level trunk
-            # below and above the current element.
-            if (A == 1) {
-                Before <- NULL
-            } else {
-                Before <- NList[1:(A - 1)]
-            }
-            if (A == B) {
-                After <- NULL
-            } else {
-                After <- NList[(A + 1):B]
-            }
-            #
-            # Treat dataframes specially.
+            Before <- if (A == 1) NULL else NList[1:(A - 1)]
+            After <- if (A == B) NULL else NList[(A + 1):B]
             if (is.data.frame(Element)) {
                 if (LinearizeDataFrames == TRUE) {
-                    #
-                    # `Jump` takes care of how much the list shall grow in this step.
                     Jump <- length(Element)
                     NList[[A]] <- NULL
-                    #
-                    # Generate or coerce names as need be.
                     if (is.null(names(Element)) | ForceNames == TRUE)
                         names(Element) <- as.character(1:length(Element))
-                    #
-                    # Just throw back as list since dataframes have no nesting.
                     Element <- as.list(Element)
-                    #
-                    # Update names
                     names(Element) <- paste(EName, names(Element), sep=NameSep)
-                    #
-                    # Plug the branch back into the top-level trunk.
                     NList <- c(Before, Element, After)
                 }
                 Jump <- 1
             } else {
                 NList[[A]] <- NULL
-                #
-                # Go recursive! :)
                 if (is.null(names(Element)) | ForceNames == TRUE)
                     names(Element) <- as.character(1:length(Element))
                 Element <- LinearizeNestedList(Element, LinearizeDataFrames,
@@ -143,8 +105,6 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
         } else {
             Jump <- 1
         }
-        #
-        # Update book-keeping variables.
         A <- A + Jump
         B <- length(NList)
     }

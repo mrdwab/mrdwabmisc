@@ -1,4 +1,4 @@
-#' Sort a \code{data.frame} by rows or columns
+#' Sort a \code{data.frame} by Rows or Columns
 #' 
 #' The \code{\link{df.sorter}} function allows you to sort a
 #' \code{\link{data.frame}} by columns or rows or both. You can also quickly

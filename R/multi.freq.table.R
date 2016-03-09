@@ -1,4 +1,4 @@
-#' Tabulates columns from a \code{data.frame} containing multiple-response data
+#' Tabulates Columns From a \code{data.frame} Containing Multiple-response Data
 #' 
 #' The \code{\link{multi.freq.table}} function takes a \code{\link{data.frame}}
 #' containing Boolean responses to multiple response questions and tabulates

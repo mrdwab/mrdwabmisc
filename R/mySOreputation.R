@@ -1,4 +1,4 @@
-#' Parse your reputation page from any of the Stack Exchange sites
+#' Parse Your Reputation Page From Any of the Stack Exchange Sites
 #' 
 #' It is very easy to \emph{view} a detailed account of your reputation at any
 #' of the Stack Exchange sites by visiting \code{http://"sitename"/reputation}

@@ -1,4 +1,4 @@
-#' Perform multiple aggregation functions on grouped data
+#' Perform Multiple Aggregation Functions on Grouped Data
 #' 
 #' Base R's \code{\link{aggregate}} function allows you to specify multiple
 #' functions when aggregating. However, the output of such commands is a

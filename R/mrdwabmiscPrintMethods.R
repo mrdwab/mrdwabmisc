@@ -1,4 +1,5 @@
-# stringseedsampling
+#' @export
+#' @aliases print.stringSeedSampling
 print.stringSeedSampling <- function(x, digits = 15, prefix = "", ...) {
   if (nrow(x$input) == 1) {
     cat("", "Input Parameters\n", "  Seedbase        : ", sep = prefix)
@@ -22,8 +23,10 @@ print.stringSeedSampling <- function(x, digits = 15, prefix = "", ...) {
   }
   invisible(x)
 }
+NULL
 
-# subSequence
+#' @export
+#' @aliases print.subSequence
 print.subSequence <- function (x, digits = getOption("digits"), prefix = "", ...) 
 {
   if (is.null(digits)) 
@@ -46,8 +49,10 @@ print.subSequence <- function (x, digits = getOption("digits"), prefix = "", ...
   }
   invisible(x)
 }
+NULL
 
-# SampleToSum
+#' @export
+#' @aliases print.sampletosum
 print.sampletosum <- function(x, prefix = "", ...) {
   cat("", "SampleToSum\n", "  Target     : ", sep = prefix)
   utils::str(x$Target, give.head = FALSE)
@@ -61,3 +66,4 @@ print.sampletosum <- function(x, prefix = "", ...) {
              give.head = FALSE)
   invisible(x)
 }
+NULL

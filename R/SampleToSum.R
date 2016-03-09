@@ -1,4 +1,4 @@
-#' Draw a random sample that sums to a specified amount
+#' Draw a Random Sample that Sums to a Specified Amount
 #' 
 #' This function creates a random sample of numbers drawn from a specified
 #' range which sum to a specified amount.

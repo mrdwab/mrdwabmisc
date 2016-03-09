@@ -1,4 +1,4 @@
-#' Identify sequences in a vector
+#' Identify Sequences in a Vector
 #' 
 #' The \code{\link{subsequence}} function is like the inverse of
 #' \code{\link{rep}}, and is somewhat related to \code{\link{rle}}. It detects

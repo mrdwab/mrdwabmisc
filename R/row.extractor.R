@@ -1,4 +1,4 @@
-#' Extract min/median/max/quantile rows from a \code{data.frame}
+#' Extract min/median/max/quantile Rows from a \code{data.frame}
 #' 
 #' The \code{\link{row.extractor}} function takes a \code{data.frame} and
 #' extracts rows with the min, median, or max values of a given variable, or
@@ -47,10 +47,6 @@
 #' 
 #' @export row.extractor
 row.extractor = function(data, extract.by, what="all") {
-  # 
-  # 
-  # See: http://stackoverflow.com/q/10256503/1270695
-  
   if (is.numeric(extract.by)) {
     extract.by = extract.by
   } else if (is.numeric(extract.by) != 0) {

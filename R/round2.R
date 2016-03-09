@@ -1,4 +1,4 @@
-#' Round numbers the way you learned in school
+#' Round Numbers the Way You Learned in School
 #' 
 #' The \code{\link{round2}} function rounds numbers in the way you probably
 #' learned in school, that is, round up to the next number for values of 5 and
@@ -29,10 +29,6 @@
 #' 
 #' @export round2
 round2 <- function(x, digits = 0) {
-  posneg = sign(x)
-  z = abs(x) * 10 ^ digits
-  z = z + 0.5
-  z = trunc(z)
-  z = z/10^digits
-  z*posneg
+  z <- (abs(x) * 10 ^ digits) + 0.5
+  (trunc(z)/10^digits) * sign(x)
 }

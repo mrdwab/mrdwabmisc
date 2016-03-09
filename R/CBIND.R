@@ -1,4 +1,4 @@
-#' cbind \code{data.frames} with different number of rows
+#' cbind \code{data.frames} with Different Number of Rows
 #' 
 #' \code{\link{cbind}} does not work when trying to combine \code{data.frame}s
 #' with differing numbers of rows. This function takes a \code{list} of
