@@ -22,7 +22,6 @@ install_github("mrdwab/mrdwabmisc")
 1. `load.scripts.and.data`
 1. `multi.freq.table`
 1. `mv`
-1. `mySOreputation`
 1. `RandomNames`
 1. `RBIND`
 1. `round2`
